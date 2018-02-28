@@ -7,6 +7,6 @@ from blog.models import Entry
 
 
 def index(request):
-    post_list = Entry.objects.all().order_by('-created_time')
+    post_list = Entry.objects.all().order_by('-c_time')
     context = {'post_list': post_list}
     return render(request, 'blog/index.html', context)
