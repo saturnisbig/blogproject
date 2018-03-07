@@ -2,6 +2,7 @@
 
 from __future__ import unicode_literals
 
+from django.shortcuts import reverse
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.six import python_2_unicode_compatible
@@ -41,6 +42,9 @@ class Entry(models.Model):
     author = models.ForeignKey(User)
     # 标签，多对多关系，博文可以有多个标签，标签也可以存在于多篇博文
     tags = models.ManyToManyField(Tag, blank=True)
+
+    def get_absolute_url(self):
+        return reverse('blog:detail', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.title
