@@ -6,6 +6,7 @@ from django.shortcuts import render, get_object_or_404
 # from django.http import HttpResponse
 
 from blog.models import Entry, Category
+from comments.forms import CommentForm
 
 
 def index(request):
@@ -22,7 +23,11 @@ def detail(request, pk):
                                       'markdown.extensions.codehilite',
                                       'markdown.extensions.toc',
                                   ])
-    context = {'post': post}
+    form = CommentForm()
+    comment_list = post.comment_set.all()
+    context = {'post': post,
+               'comment_list': comment_list,
+               'form': form}
     return render(request, 'blog/detail.html', context)
 
 
