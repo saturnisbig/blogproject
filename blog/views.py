@@ -10,7 +10,7 @@ from comments.forms import CommentForm
 
 
 def index(request):
-    post_list = Entry.objects.all().order_by('-c_time')
+    post_list = Entry.objects.all()
     context = {'post_list': post_list}
     return render(request, 'blog/index.html', context)
 
@@ -40,6 +40,6 @@ def archives(request, year, month):
 
 def category(request, pk):
     cate = get_object_or_404(Category, pk=pk)
-    post_list = Entry.objects.filter(category=cate).order_by('-c_time')
+    post_list = Entry.objects.filter(category=cate)
     context = {'post_list': post_list}
     return render(request, 'blog/index.html', context)
