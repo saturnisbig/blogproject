@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Black &amp; White</title>
+	<title>{% block title %}{% endblock title%} Black &amp; White</title>
 
     <!-- meta -->
     <meta charset="UTF-8">
@@ -96,7 +96,7 @@
 					<ul>
 						{% for date in date_list %}
 						<li>
-							<a href="#">{{ date.year }}年{{ date.month }}月</a>
+							<a href="{% url 'blog:archives' date.year date.month %}">{{ date.year }}年{{ date.month }}月</a>
 						</li>
 						{% empty %}
 						<li>
@@ -112,7 +112,7 @@
 					<ul>
 						{% for category in categories %}
 						<li>
-							<a href="#">{{ category.name }}<span class="post-count">(13)</span></a>
+							<a href="{% url 'blog:category' category.pk %}">{{ category.name }}<span class="post-count">(13)</span></a>
 						</li>
 						{% empty %}
 						<li>还没有分类</li>
