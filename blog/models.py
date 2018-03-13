@@ -34,7 +34,7 @@ class Entry(models.Model):
     # 文章简介，可以为空
     excerpt = models.CharField(max_length=255, blank=True)
     body = models.TextField()
-    views = models.IntegerField(default=0)
+    views = models.PositiveIntegerField(default=0)
     c_time = models.DateTimeField(auto_now_add=True)
     m_time = models.DateTimeField(auto_now=True)
     # 外键
@@ -42,6 +42,10 @@ class Entry(models.Model):
     author = models.ForeignKey(User)
     # 标签，多对多关系，博文可以有多个标签，标签也可以存在于多篇博文
     tags = models.ManyToManyField(Tag, blank=True)
+
+    def increase_views(self):
+        self.views += 1
+        self.save(update_fields=['views'])
 
     def get_absolute_url(self):
         return reverse('blog:detail', kwargs={'pk': self.pk})

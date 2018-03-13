@@ -23,6 +23,7 @@ def detail(request, pk):
                                       'markdown.extensions.codehilite',
                                       'markdown.extensions.toc',
                                   ])
+    post.increase_views()
     form = CommentForm()
     comment_list = post.comment_set.all()
     context = {'post': post,
