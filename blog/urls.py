@@ -7,9 +7,10 @@ from blog import views
 
 app_name = 'blog'
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'^post/(?P<pk>\d+)/$', views.detail, name='detail'),
+    url(r'^$', views.IndexView.as_view(), name='index'),
+    url(r'^post/(?P<pk>\d+)/$', views.EntryDetailView.as_view(), name='detail'),
     url(r'^archives/(?P<year>[0-9]{4})/(?P<month>[0-9]{1,2})/$',
-        views.archives, name='archives'),
-    url(r'^categories/(?P<pk>\d+)/$', views.category, name='category'),
+        views.ArchiveView.as_view(), name='archives'),
+    url(r'^categories/(?P<pk>\d+)/$', views.CategoryView.as_view(),
+        name='category'),
 ]
