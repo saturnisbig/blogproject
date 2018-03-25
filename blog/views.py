@@ -14,7 +14,73 @@ class IndexView(ListView):
     model = Entry
     template_name = 'blog/index.html'
     context_object_name = 'post_list'
-    paginate_by = 5
+    paginate_by = 1
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        paginator = context.get('paginator')
+        page = context.get('page_obj')
+        is_paginated = context.get('is_paginated')
+
+        pagination_data = self.pagination_data(is_paginated, paginator, page)
+        context.update(pagination_data)
+        return context
+
+    def pagination_data(self, is_paginated, paginator, page, per_page=2):
+        if not is_paginated:
+            return {}
+        first = False
+        last = False
+        left = []
+        right = []
+        left_has_more = False
+        right_has_more = False
+        page_number = page.number
+        total_pages = paginator.num_pages
+        page_range = list(paginator.page_range)
+
+        if page_number == 1:
+            right = page_range[page_number:(page_number+per_page)]
+            if right[-1] < total_pages - 1:
+                right_has_more = True
+
+            if right[-1] < total_pages:
+                last = True
+        elif page_number == total_pages:
+            # index in page_range
+            index = total_pages - 1
+            left_start = index - per_page
+            left = page_range[(left_start) if left_start > 0 else 0:index]
+            if left[0] > 2:
+                left_has_more = True
+
+            if left[0] > 1:
+                first = True
+        else:
+            index = page_number - 1
+            left_start = index - per_page
+            left = page_range[left_start if left_start > 0 else 0:index]
+            right = page_range[page_number:page_number+per_page]
+            if left[0] > 2:
+                left_has_more = True
+
+            if left[0] > 1:
+                first = True
+
+            if right[-1] < total_pages - 1:
+                right_has_more = True
+
+            if right[-1] < total_pages:
+                last = True
+
+        return {
+            'first': first,
+            'left': left,
+            'left_has_more': left_has_more,
+            'right': right,
+            'right_has_more': right_has_more,
+            'last': last,
+        }
 
 
 class CategoryView(IndexView):
