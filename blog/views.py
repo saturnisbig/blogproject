@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 
 import markdown
+from markdown.extensions.toc import TocExtension
 
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
+from django.utils.text import slugify
 # from django.http import HttpResponse
 
 from blog.models import Entry, Category, Tag
 from comments.forms import CommentForm
+from tools import remove_markdown_toc
 
 
 class IndexView(ListView):
@@ -110,11 +113,15 @@ class EntryDetailView(DetailView):
 
     def get_object(self, queryset=None):
         post = super(EntryDetailView, self).get_object(queryset=queryset)
-        post.body = markdown.markdown(post.body,
-                                      extensions=[
-                                          'markdown.extensions.extra',
-                                          'markdown.extensions.codehilite',
-                                          'markdown.extensions.toc'])
+        md = markdown.Markdown(extensions=[
+            'markdown.extensions.extra',
+            'markdown.extensions.codehilite',
+            # 支持中文锚点
+            TocExtension(slugify=slugify)]
+            # 'markdown.extensions.toc']
+        )
+        post.body = remove_markdown_toc(md.convert(post.body))
+        post.toc = md.toc
         return post
 
     def get_context_data(self, **kwargs):
