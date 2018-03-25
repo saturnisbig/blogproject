@@ -13,4 +13,5 @@ urlpatterns = [
         views.ArchiveView.as_view(), name='archives'),
     url(r'^categories/(?P<pk>\d+)/$', views.CategoryView.as_view(),
         name='category'),
+    url(r'^tag/(?P<pk>\d+)/$', views.TagView.as_view(), name='tag'),
 ]

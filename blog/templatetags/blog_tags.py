@@ -4,7 +4,7 @@
 from django import template
 from django.db.models.aggregates import Count
 
-from blog.models import Entry, Category
+from blog.models import Entry, Category, Tag
 
 register = template.Library()
 
@@ -22,3 +22,8 @@ def archive():
 @register.simple_tag
 def get_categories():
     return Category.objects.annotate(num_posts=Count('entry')).filter(num_posts__gt=0)
+
+
+@register.simple_tag
+def get_tags():
+    return Tag.objects.annotate(num_posts=Count('entry')).filter(num_posts__gt=0)

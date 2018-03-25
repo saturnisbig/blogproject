@@ -16,6 +16,14 @@
 	</header>
 	<div class="entry-content clearfix">
 		{{ post.body|safe }}
+		<div class="widget-tag-cloud">
+			<ul>
+				<span>标签：</span>
+				{% for tag in post.tags.all %}
+				<li><a href="{% url 'blog:tag' tag.pk %}">{{ tag.name }}({{ tag.entry_set.count }})</a></li>
+				{% endfor %}
+			</ul>
+		</div>
 	</div>
 </article>
 <section class="comment-area" id="comment-area">

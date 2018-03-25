@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 # from django.http import HttpResponse
 
-from blog.models import Entry, Category
+from blog.models import Entry, Category, Tag
 from comments.forms import CommentForm
 
 
@@ -126,6 +126,12 @@ class EntryDetailView(DetailView):
             'comment_list': comment_list
         })
         return context
+
+
+class TagView(IndexView):
+    def get_queryset(self):
+        tag = get_object_or_404(Tag, pk=self.kwargs.get('pk'))
+        return super(TagView, self).get_queryset().filter(tags=tag)
 
 
 def index(request):
