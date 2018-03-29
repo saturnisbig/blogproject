@@ -10,7 +10,7 @@ from django.utils.text import slugify
 
 from blog.models import Entry, Category, Tag
 from comments.forms import CommentForm
-from tools import remove_markdown_toc
+# from tools import remove_markdown_toc
 
 
 class IndexView(ListView):
@@ -120,7 +120,8 @@ class EntryDetailView(DetailView):
             TocExtension(slugify=slugify)]
             # 'markdown.extensions.toc']
         )
-        post.body = remove_markdown_toc(md.convert(post.body))
+        # post.body = remove_markdown_toc(md.convert(post.body))
+        post.body = post.body
         post.toc = md.toc
         return post
 

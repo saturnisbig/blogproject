@@ -6,3 +6,4 @@
 *.bk
 *.jpg
 *.coverage
+fabfile.py
