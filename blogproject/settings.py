@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'we-rgs2depk014-76^0mn2@iwfz7anthu2yyhoxkkswlszpm&b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.tplove.info']
 
@@ -77,15 +77,15 @@ WSGI_APPLICATION = 'blogproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'tplove',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-        'OPTIONS': {'charset': 'utf8mb4', }
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': 'tplove',
+        # 'USER': 'root',
+        # 'PASSWORD': 'root',
+        # 'HOST': '127.0.0.1',
+        # 'PORT': '3306',
+        # 'OPTIONS': {'charset': 'utf8mb4', }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -132,4 +132,4 @@ STATIC_URL = '/static/'
 #     os.path.join(BASE_DIR, 'static'),
 # ]
 # collect static file
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')

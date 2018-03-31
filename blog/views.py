@@ -121,7 +121,7 @@ class EntryDetailView(DetailView):
             # 'markdown.extensions.toc']
         )
         # post.body = remove_markdown_toc(md.convert(post.body))
-        post.body = post.body
+        post.body = md.convert(post.body)
         post.toc = md.toc
         return post
 
