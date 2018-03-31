@@ -15,18 +15,19 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'we-rgs2depk014-76^0mn2@iwfz7anthu2yyhoxkkswlszpm&b'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.tplove.info']
-
+# 2018-03-31 18:36:41 Teddy Fish for production and local
+if 'DJANGO_DEBUG_FALSE' in os.environ:
+    DEBUG = False
+    SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
+    ALLOWED_HOSTS = [os.environ['SITENAME']]
+else:
+    # Quick-start development settings - unsuitable for production
+    # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = 'we-rgs2depk014-76^0mn2@iwfz7anthu2yyhoxkkswlszpm&b'
+    # SECURITY WARNING: don't run with debug turned on in production!
+    DEBUG = True
+    ALLOWED_HOSTS = []
 
 # Application definition
 
