@@ -20,6 +20,17 @@ if 'DJANGO_DEBUG_FALSE' in os.environ:
     DEBUG = False
     SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
     ALLOWED_HOSTS = [os.environ['SITENAME']]
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.environ['MYSQL_DB'],
+            'USER': os.environ['MYSQL_USER'],
+            'PASSWORD': os.environ['MYSQL_USER_PASSWORD'],
+            'HOST': '127.0.0.1',
+            'PORT': '3306',
+            'OPTIONS': {'charset': 'utf8mb4', }
+        }
+    }
 else:
     # Quick-start development settings - unsuitable for production
     # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -27,6 +38,22 @@ else:
     SECRET_KEY = 'we-rgs2depk014-76^0mn2@iwfz7anthu2yyhoxkkswlszpm&b'
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
+    # Database
+    # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'tplove',
+            'USER': 'root',
+            'PASSWORD': 'root123..',
+            'HOST': '127.0.0.1',
+            'PORT': '3306',
+            'OPTIONS': {'charset': 'utf8mb4', }
+            # 'ENGINE': 'django.db.backends.sqlite3',
+            # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
     ALLOWED_HOSTS = []
 
 # Application definition
@@ -71,24 +98,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'blogproject.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        # 'ENGINE': 'django.db.backends.mysql',
-        # 'NAME': 'tplove',
-        # 'USER': 'root',
-        # 'PASSWORD': 'root',
-        # 'HOST': '127.0.0.1',
-        # 'PORT': '3306',
-        # 'OPTIONS': {'charset': 'utf8mb4', }
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
 
 # Password validation
