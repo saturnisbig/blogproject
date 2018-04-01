@@ -26,7 +26,7 @@ if 'DJANGO_DEBUG_FALSE' in os.environ:
             'NAME': os.environ['MYSQL_DB'],
             'USER': os.environ['MYSQL_USER'],
             'PASSWORD': os.environ['MYSQL_USER_PASSWORD'],
-            'HOST': '127.0.0.1',
+            'HOST': 'localhost',
             'PORT': '3306',
             'OPTIONS': {'charset': 'utf8mb4', }
         }
@@ -47,7 +47,7 @@ else:
             'NAME': 'tplove',
             'USER': 'root',
             'PASSWORD': 'root123..',
-            'HOST': '127.0.0.1',
+            'HOST': 'localhost',
             'PORT': '3306',
             'OPTIONS': {'charset': 'utf8mb4', }
             # 'ENGINE': 'django.db.backends.sqlite3',
