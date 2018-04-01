@@ -20,7 +20,7 @@ from blog.feeds import EntryRSSFeed
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^blog/', include('blog.urls')),
+    url(r'^$', include('blog.urls')),
     url(r'^comments/', include('comments.urls')),
     url(r'^all/rss/$', EntryRSSFeed(), name='rss'),
 ]
