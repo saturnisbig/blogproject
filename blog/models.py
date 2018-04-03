@@ -12,17 +12,23 @@ from django.utils.html import strip_tags
 
 @python_2_unicode_compatible
 class Category(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField('类别名称', max_length=200)
     c_time = models.DateTimeField(auto_now_add=True)
     m_time = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = 'Categories'
 
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('blog:category', kwargs={'pk': self.pk})
+
 
 @python_2_unicode_compatible
 class Tag(models.Model):
-    name = models.CharField(max_length=150)
+    name = models.CharField('标签', max_length=150)
     c_time = models.DateTimeField(auto_now_add=True)
     m_time = models.DateTimeField(auto_now=True)
 
@@ -32,21 +38,25 @@ class Tag(models.Model):
 
 @python_2_unicode_compatible
 class Entry(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField('文章标题', max_length=200)
     # 文章简介，可以为空
-    excerpt = models.CharField(max_length=255, blank=True)
-    body = models.TextField()
-    views = models.PositiveIntegerField(default=0)
-    c_time = models.DateTimeField(auto_now_add=True)
-    m_time = models.DateTimeField(auto_now=True)
+    excerpt = models.CharField('摘要', max_length=255, blank=True,
+                               help_text='不填写则自动生成')
+    body = models.TextField('文章内容')
+    views = models.PositiveIntegerField('阅读量', default=0)
+    c_time = models.DateTimeField('创建时间', auto_now_add=True)
+    m_time = models.DateTimeField('修改时间', auto_now=True)
     # 外键
-    category = models.ForeignKey(Category)
-    author = models.ForeignKey(User)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE,
+                                 verbose_name='类别')
+    author = models.ForeignKey(User, verbose_name='作者',
+                               on_delete=models.CASCADE)
     # 标签，多对多关系，博文可以有多个标签，标签也可以存在于多篇博文
-    tags = models.ManyToManyField(Tag, blank=True)
+    tags = models.ManyToManyField(Tag, blank=True, verbose_name='标签')
 
     class Meta:
         ordering = ['-c_time']
+        verbose_name_plural = 'Entries'
 
     def __str__(self):
         return self.title
