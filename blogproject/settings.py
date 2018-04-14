@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 Django settings for blogproject project.
 
@@ -65,9 +67,31 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # for allauth
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    # 第三方关联账号
+    'allauth.socialaccount.providers.weibo',
+    'allauth.socialaccount.providers.github',
+    # 自己的应用
     'blog',
     'comments',
 ]
+
+# django-allauth相关设置
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    # allauth相关的认证方法
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+SITE_ID = 2
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_EMAIL_REQUIRED = 'none'
+
+LOGIN_REDIRECT_URL = '/'
+# django-allauth设置相关结束
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
