@@ -5,9 +5,10 @@ import markdown
 
 from django.shortcuts import reverse
 from django.db import models
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from django.utils.six import python_2_unicode_compatible
 from django.utils.html import strip_tags
+from django.conf import settings
 
 
 @python_2_unicode_compatible
@@ -49,7 +50,7 @@ class Entry(models.Model):
     # 外键
     category = models.ForeignKey(Category, on_delete=models.CASCADE,
                                  verbose_name='类别')
-    author = models.ForeignKey(User, verbose_name='作者',
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='作者',
                                on_delete=models.CASCADE)
     # 标签，多对多关系，博文可以有多个标签，标签也可以存在于多篇博文
     tags = models.ManyToManyField(Tag, blank=True, verbose_name='标签')

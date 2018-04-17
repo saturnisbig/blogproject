@@ -67,6 +67,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 自定义用户
+    'users',
     # for allauth
     'django.contrib.sites',
     'allauth',
@@ -79,6 +81,9 @@ INSTALLED_APPS = [
     'blog',
     'comments',
 ]
+
+# 使用自定义的用户模型
+AUTH_USER_MODEL = 'users.User'
 
 # django-allauth相关设置
 AUTHENTICATION_BACKENDS = (
