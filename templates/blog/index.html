@@ -1,27 +1,39 @@
 {% extends 'blog/base_index.html' %}
 
-{% block content %}
+{% block content_nav %}
+<div class="bg-white p-2">
+	<a class="pb-2" href="/">最新</a>
+	<a class="pb-2 ml-4" href="/popular/">最热</a>
+	<a class="pb-2 ml-4 float-md-right" href="{% url 'rss' %}">
+		<i class="fa fa-rss mr-1" aria-hidden="true"></i>
+		RSS订阅
+	</a>
+</div>
+{% endblock content_nav %}
 
+{% block content %}
 {% for post in post_list %}
-<article class="post post-{{ post.id }}">
-	<header class="entry-header">
-		<h1 class="entry-title">
-			<a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-		</h1>
-		<div class="entry-meta">
-			<span class="post-category"><a href="#">{{ post.category.name }}</a></span>
-			<span class="post-date"><a href="#"><time class="entry-date"
-					     datetime="{{ post.c_time }}">{{ post.c_time }}</time></a></span>
-			<span class="post-author"><a href="#">{{ post.author }}</a></span>
-			<span class="comments-link"><a href="#">{{ post.comment_set.count }} 评论</a></span>
-			<span class="views-count"><a href="#">{{ post.views }} 阅读</a></span>
-		</div>
-	</header>
-	<div class="entry-content clearfix">
-		<p>{{ post.excerpt }}......</p>
-		<div class="read-more cl-effect-14">
-			<a href="{{ post.get_absolute_url }}" class="more-link">继续阅读 <span class="meta-nav">→</span></a>
-		</div>
+<article class="post-item mb-2 bg-white p-2">
+	<div class="post-item-meta small text-muted">
+		<ul class="mb-1 list-inline dot-divider">
+			<li class="list-inline-item post-item-meta-list">
+				{{ post.author }}
+			</li>
+			<li class="list-inline-item post-item-meta-list">
+				{{ post.c_time }}
+			</li>
+		</ul>
+	</div>
+	<h5 class="post-item-title font-weight-bold">
+		<a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+	</h5>
+	<div class="post-item-excerpt">
+		{{ post.excerpt }}......
+	</div>
+	<div class="entry-item-statistic small text-muted">
+		<a class="mr-2" role="button" href="{{ post.category.get_absolute_url }}"><i class="fa fa-book mr-1" aria-hidden="true"></i>{{ post.category.name }}</a>
+		<a class="mr-2" role="button" href="{{ post.get_absolute_url }}"><i class="fa fa-eye mr-1" aria-hidden="true"></i>{{ post.views }}</a>
+		<a class="mr-2" role="button" href="{{ post.get_absolute_url }}#comment"><i class="fa  fa-comment mr-1" aria-hidden="true"></i>{{ post.comment_set.count }}</a>
 	</div>
 </article>
 {% empty %}
@@ -31,35 +43,35 @@
 {% if is_paginated %}
 <div class="pagination">
 	<ul>
-	{% if page_obj.has_previous %}
-	<li><a href="?page={{ page_obj.previous_page_number }}">上一页</a></li>
-	{% endif %}
-	{% if first %}
-	<li><a href="?page=1">1</a></li>
-	{% endif %}
-	{% if left %}
+		{% if page_obj.has_previous %}
+		<li><a href="?page={{ page_obj.previous_page_number }}">上一页</a></li>
+		{% endif %}
+		{% if first %}
+		<li><a href="?page=1">1</a></li>
+		{% endif %}
+		{% if left %}
 		{% if left_has_more %}
 		<li>...</li>
 		{% endif %}
 		{% for pg in left %}
 		<li><a href="?page={{pg}}">{{ pg }}</a></li>
 		{% endfor %}
-	{% endif %}
-	<li class="current"><a href="?page={{ page_obj.number }}">{{ page_obj.number }}</a></li>
-	{% if right %}
+		{% endif %}
+		<li class="current"><a href="?page={{ page_obj.number }}">{{ page_obj.number }}</a></li>
+		{% if right %}
 		{% for pg in right %}
 		<li><a href="?page={{ pg }}">{{ pg }}</a></li>
 		{% endfor %}
 		{% if right_has_more %}
 		<li>...</li>
 		{% endif %}
-	{% endif %}
-	{% if last %}
-	<li><a href="?page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a></li>
-	{% endif %}
-	{% if page_obj.has_next %}
-	<li><a href="?page={{ page_obj.next_page_number }}">下一页</a></li>
-	{% endif %}
+		{% endif %}
+		{% if last %}
+		<li><a href="?page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a></li>
+		{% endif %}
+		{% if page_obj.has_next %}
+		<li><a href="?page={{ page_obj.next_page_number }}">下一页</a></li>
+		{% endif %}
 	</ul>
 </div>
 {% endif %}

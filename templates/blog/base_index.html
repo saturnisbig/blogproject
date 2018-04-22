@@ -5,16 +5,12 @@
 
 {% block title %}博客首页{% endblock title%}
 
-{% block navbar %}
-<li class="cl-effect-11">
-	<a href="{% url 'rss' %}"><span class="ion-social-rss-outline"></span>RSS</a>
-</li>
-{% endblock navbar %}
-
 {% block sidebar %}
-<div class="widget widget-recent-posts">
-	<h3 class="widget-title">最新文章</h3>
+<!--
+<div class="card border-0">
+	<h6 class="card-title">最新文章</h6>
 	{% get_recent_posts as post_list %}
+	<div class="card-body">
 	<ul>
 		{% for post in post_list %}
 		<li>
@@ -24,25 +20,11 @@
 		<li>没有最新文章</li>
 		{% endfor %}
 	</ul>
+	</div>
 </div>
-<div class="widget widget-archives">
-	<h3 class="widget-title">归档</h3>
-	{% archive as date_list %}
-	<ul>
-		{% for date in date_list %}
-		<li>
-			<a href="{% url 'blog:archives' date.year date.month %}">{{ date.year }}年{{ date.month }}月</a>
-		</li>
-		{% empty %}
-		<li>
-			还没有归档
-		</li>
-		{% endfor %}
-	</ul>
-</div>
-
-<div class="widget widget-category">
-	<h3 class="widget-title">分类</h3>
+-->
+<div class="card border-0 bg-white p-2 mb-2">
+	<h6 class="card-title"><i class="fa fa-book mr-2"></i>分类</h6>
 	{% get_categories as categories %}
 	<ul>
 		{% for category in categories %}
@@ -57,15 +39,38 @@
 	</ul>
 </div>
 
-<div class="widget widget-tag-cloud">
-	<h3 class="widget-title">标签云</h3>
-	{% get_tags as taglist %}
+<div class="cardw border-0 bg-white p-2 mb-2">
+	<h6 class="card-title"><i class="fa fa-sitemap mr-2"></i>归档</h6>
+	{% archive as date_list %}
 	<ul>
-		{% for tag in taglist %}
-		<li><a href="{% url 'blog:tag' tag.pk %}">{{ tag.name }}({{ tag.num_posts }})</a></li>
+		{% for date in date_list %}
+		<li>
+			<a href="{% url 'blog:archives' date.year date.month %}">{{ date.year }}年{{ date.month }}月</a>
+		</li>
 		{% empty %}
-		还没有标签.
+		<li>
+			还没有归档
+		</li>
 		{% endfor %}
 	</ul>
 </div>
+
+<div class="card border-0 bg-white p-2 mb-2">
+	<h6 class="card-title"><i class="fa fa-tags mr-2"></i>标签云</h6>
+	{% get_tags as taglist %}
+	<div class="tag-cloud">
+		<ul class="list-inline">
+		{% for tag in taglist %}
+		<li class="list-inline-item">
+			<a title="{{tag.name}}标签下有{{tag.num_posts}}篇文章" href="{% url 'blog:tag' tag.pk %}">
+			{{ tag.name }}({{ tag.num_posts }})
+		</a>
+		</li>
+		{% empty %}
+		还没有标签.
+		{% endfor %}
+		</ul>
+	</div>
+</div>
 {% endblock sidebar %}
+

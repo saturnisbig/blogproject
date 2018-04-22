@@ -1,121 +1,82 @@
 {% load static %}
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 	<head>
-		<title>
-			{% block title %}{% endblock title%} - Teddy &amp; Pudding
-		</title>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<!-- meta -->
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-
-		<!-- css -->
-		<link rel="stylesheet" href="{% static 'blog/css/bootstrap.min.css' %}">
-		<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-		<!--<link rel="stylesheet" href="{% static 'css/pace.css' %}">-->
-		<link rel="stylesheet" href="{% static 'blog/css/pace.css' %} ">
-		<link rel="stylesheet" href="{% static 'blog/css/custom.css' %}">
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+		<link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+		<!--for code highlight-->
 		<link rel="stylesheet" href="{% static 'blog/css/highlights/github.css' %}">
+		<link rel="stylesheet" href="{% static 'blog/css/base.css' %}?v=20180420">
 
-		<!-- js -->
-		<script src="{% static 'blog/js/jquery-2.1.3.min.js' %}"></script>
-		<script src="{% static 'blog/js/bootstrap.min.js' %}"></script>
-		<script src="{% static 'blog/js/pace.min.js' %}"></script>
-		<script src="{% static 'blog/js/modernizr.custom.js' %}"></script>
+		{% block title %}{% endblock title%} - Teddy &amp; Pudding
+		{% block metas %}
+		<meta name="description" content="{{ site_description }}">
+		<meta name="keywords" content="{{ site_keywords }}">
+		{% endblock %}
 	</head>
+	<body class="">
+		<nav class="navbar navbar-expand-md navbar-light fixed-top bg-white">
+			<a class="navbar-brand" href="{% url 'blog:index' %}">Teddy &amp; Pudding</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="{% url 'blog:index' %}"><i class="fa fa-home mr-1"></i>首页</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'blog:index' %}">博客</a>
+					</li>
+					<!--<li class="nav-item">-->
+						<!--<a class="nav-link disabled" href="#">Disabled</a>-->
+					<!--</li>-->
+				</ul>
+				<!--
+				<form class="form-inline mt-2 mt-md-0">
+					<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				</form>
+				-->
+			</div>
+		</nav>
 
-	<body>
 		<div class="container">
-			<header id="site-header">
-				<div class="row">
-					<div class="col-md-4 col-sm-5 col-xs-8">
-						<div class="logo">
-							<h1><a href="{% url 'blog:index'%}"><b>Teddy</b> &amp;Pudding</a></h1>
-						</div>
-					</div><!-- col-md-4 -->
-					<div class="col-md-8 col-sm-7 col-xs-4">
-						<nav class="main-nav" role="navigation">
-							<div class="navbar-header">
-								<button type="button" id="trigger-overlay" class="navbar-toggle">
-									<span class="ion-navicon"></span>
-								</button>
-							</div>
-
-							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-								<ul class="nav navbar-nav navbar-right">
-									<li class="cl-effect-11"><a href="{% url 'blog:index' %}" data-hover="首页">首页</a></li>
-									<li class="cl-effect-11"><a href="{% url 'blog:index' %}" data-hover="博客">博客</a></li>
-									<li class="cl-effect-11"><a href="about.html" data-hover="关于">关于</a></li>
-									{% if request.user.is_authenticated %}
-									<li class="cl-effect-11">
-										<a href="{% url 'account_logout'%}" data-hover="登出">登出</a>
-									</li>
-									<li class="cl-effect-11">
-										<img height="40" width="40" src="{{ request.user.socialaccount_set.all.0.get_avatar_url }}" />
-									</li>
-									{% else %}
-									<li class="cl-effect-11"><a href="{% url 'account_login'%}" data-hover="登录">登录</a></li>
-									{% endif %}
-									{% block navbar %}{% endblock navbar %}
-								</ul>
-							</div><!-- /.navbar-collapse -->
-						</nav>
-						<div id="header-search-box">
-							<a id="search-menu" href="#"><span id="search-icon" class="ion-ios-search-strong"></span></a>
-							<div id="search-form" class="search-form">
-								<form role="search" method="get" id="searchform" action="#">
-									<input type="search" placeholder="搜索" required>
-									<button type="submit"><span class="ion-ios-search-strong"></span></button>
-								</form>
-							</div>
-						</div>
-					</div><!-- col-md-8 -->
+			<div class="row">
+				<main class="col-md-8">
+				<div class="content-nav mb-3">
+				{% block content_nav %}
+				内容区导航，面包屑导航等	
+				{% endblock content_nav %}
 				</div>
-			</header>
-		</div>
-
-		<div class="content-body">
-			<div class="container">
-				<div class="row">
-					<main class="col-md-8">
-					{% block content %}
-					这是默认的内容区
-					{% endblock content %}
-					</main>
-					<aside class="col-md-4">
-						{% block sidebar %}
-						边栏区域
-						{% endblock sidebar %}
-					</aside>
+				<div class="p-1">
+				{% block content %}
+				这是默认的内容区
+				{% endblock content %}
 				</div>
+				</main>
+				<aside class="col-md-3 ml-2">
+					{% block sidebar %}
+					边栏区域
+					{% endblock sidebar %}
+				</aside>
 			</div>
 		</div>
-		<footer id="site-footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<p class="copyright">&copy 2018 Design by Teddy with Love</p>
-					</div>
-				</div>
+		<footer id="site-footer" class="footer bg-white">
+			<div class="container small">
+				<span class="text-muted">&copy 2018 Design by Teddy with Love</span>
 			</div>
 		</footer>
 
-		<!-- Mobile Menu -->
-		<div class="overlay overlay-hugeinc">
-			<button type="button" class="overlay-close"><span class="ion-ios-close-empty"></span></button>
-			<nav>
-				<ul>
-					<li><a href="{% url 'blog:index' %}">首页</a></li>
-					<li><a href="{% url 'blog:index' %}">博客</a></li>
-					<li><a href="about.html">关于</a></li>
-					<li><a href="#">联系</a></li>
-				</ul>
-			</nav>
-		</div>
-
-		<script src="{% static 'blog/js/script.js' %}"></script>
-
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdn.bootcss.com/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+		<script src="https://cdn.bootcss.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 	</body>
 </html>
-
