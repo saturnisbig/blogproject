@@ -7,28 +7,28 @@
 {% block content_nav %}
 <nav aria-label="breadcrumb">
 	<ol class="breadcrumb bg-white">
-	<li class="breadcrumb-item">
-		<a href="{% url 'blog:index' %}"><i class="fa fa-home mr-1"></i>首页</a>
-	</li>	
-	<li class="breadcrumb-item">
-		<a href="{{ post.category.get_absolute_url }}">{{ post.category.name }}</a>
-	</li>
-	<li class="breadcrumb-item active" aria-current="page">{{ post.title }}</li>
-	
+		<li class="breadcrumb-item">
+			<a href="{% url 'blog:index' %}"><i class="fa fa-home mr-1"></i>首页</a>
+		</li>	
+		<li class="breadcrumb-item">
+			<a href="{{ post.category.get_absolute_url }}">{{ post.category.name }}</a>
+		</li>
+		<li class="breadcrumb-item active" aria-current="page">{{ post.title }}</li>
+
 	</ol>
 </nav>
 {% endblock content_nav %}
 
 {% block content %}
 <article class="post-item bg-white p-2">
-	<h3 class="post-item-title">{{ post.title }}</h3>
+	<h4 class="post-item-title">{{ post.title }}</h4>
 	<div class="post-item-meta">
 		<ul class="list-inline small dot-divider text-muted">
 			<li class="list-inline-item">{{ post.c_time }}</li>
 			<li class="list-inline-item">{{ post.author.username }}</li>
 			<li class="list-inline-item">{{ post.views }}阅读</li>
 			<li class="list-inline-item">{{ post.comment_set.count }}评论</li>
-			
+
 		</ul>
 	</div>
 	<div class="post-item-content clearfix">
@@ -37,7 +37,7 @@
 			<ul class="list-inline">
 				<span>标签：</span>
 				{% for tag in post.tags.all %}
-				<li class="list-inline-item text-secondary">
+				<li class="list-inline-item text-secondary small">
 					<a href="{% url 'blog:tag' tag.pk %}">
 						{{ tag.name }}({{ tag.entry_set.count }})
 					</a>
@@ -100,9 +100,8 @@
 {% block toc %}
 <div class="card border-0">
 	<div class="card-body">
-	<h6 class="card-title">文章目录</h6>
-	{{ post.toc|safe }}
+		<!--<h6 class="card-title">文章目录</h6>-->
+		{{ post.toc|safe }}
 	</div>
 </div>
 {% endblock toc %}
-
