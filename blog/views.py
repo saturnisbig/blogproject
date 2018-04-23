@@ -142,6 +142,11 @@ class TagView(IndexView):
         return super(TagView, self).get_queryset().filter(tags=tag)
 
 
+def popular(request):
+    post_list = Entry.objects.order_by('-views')
+    return render(request, 'blog/index.html', {'post_list': post_list})
+
+
 def index(request):
     post_list = Entry.objects.all()
     context = {'post_list': post_list}

@@ -19,7 +19,7 @@ from django.contrib import admin
 from blog.feeds import EntryRSSFeed
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^adminx/', admin.site.urls),
     url(r'^comments/', include('comments.urls')),
     url(r'^all/rss/$', EntryRSSFeed(), name='rss'),
     url(r'^accounts/', include('allauth.urls')),
