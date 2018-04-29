@@ -5,21 +5,20 @@
 		<!-- Required meta tags -->
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		{% block metas %}
+		<meta name="description" content="{{ site_description }}">
+		<meta name="keywords" content="{{ site_keywords }}">
+		{% endblock %}
 
+		<title>{% block title %}{% endblock title%} - Teddy &amp; Pudding</title>
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 		<link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 		<!--for code highlight-->
 		<link rel="stylesheet" href="{% static 'blog/css/highlights/github.css' %}">
 		<link rel="stylesheet" href="{% static 'blog/css/base.css' %}?v=20180420">
-
-		{% block title %}{% endblock title%} - Teddy &amp; Pudding
-		{% block metas %}
-		<meta name="description" content="{{ site_description }}">
-		<meta name="keywords" content="{{ site_keywords }}">
-		{% endblock %}
 	</head>
-	<body class="">
+	<body>
 		<nav class="navbar navbar-expand-md navbar-light fixed-top bg-white">
 			<a class="navbar-brand" href="{% url 'blog:index' %}">Teddy &amp; Pudding</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,40 +32,44 @@
 					<li class="nav-item">
 						<a class="nav-link" href="{% url 'blog:index' %}">博客</a>
 					</li>
-					<!--<li class="nav-item">-->
-						<!--<a class="nav-link disabled" href="#">Disabled</a>-->
-					<!--</li>-->
 				</ul>
 				<!--
-				<form class="form-inline mt-2 mt-md-0">
-					<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-				</form>
+	    <form class="form-inline mt-2 mt-md-0">
+	    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+	    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+	    </form>
 				-->
 			</div>
+			<ul class="navbar-nav">
+				{% if user.is_authenticated %}
+				<li class="nav-item dropdown">
+					<a id="navbarDropdown" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" title="{{ user.username }}, 欢迎回来!">
+						<i class="fa fa-fw fa-user text-info mr-2"></i>
+					</a>
+					<div class="dropdown-menu dropdown-menu-right mt-0 rounded-0 border-0" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="#">个人资料</a>
+						<a class="dropdown-item" href="{% url 'account_logout' %}">登出</a>
+					</div>
+				</li>	
+				{% else %}
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'account_login' %}">登录</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'account_signup' %}">注册</a>
+				</li>
+
+				{% endif %}
+			</ul>
 		</nav>
 
 		<div class="container">
-			<div class="row">
-				<main class="col-md-8">
-				<div class="content-nav mb-3">
-				{% block content_nav %}
-				内容区导航，面包屑导航等	
-				{% endblock content_nav %}
-				</div>
-				<div class="p-1">
-				{% block content %}
-				这是默认的内容区
-				{% endblock content %}
-				</div>
-				</main>
-				<aside class="col-md-3 ml-2">
-					{% block sidebar %}
-					边栏区域
-					{% endblock sidebar %}
-				</aside>
+			<div class="row mt-3">
+				{% block main %}
+				{% endblock main %}
 			</div>
 		</div>
+
 		<footer id="site-footer" class="footer bg-white">
 			<div class="container text-muted small text-center">
 				&copy 2018 Design by Teddy with Love

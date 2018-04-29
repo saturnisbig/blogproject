@@ -1,4 +1,9 @@
-{% extends 'blog/base_detail.html' %}
+{% extends 'blog/base_blog.html' %}
+
+{% block metas %}
+<meta name="description" content="{{ post.excerpt }}">	
+<meta name="keywords" content="{{ post.category.name }},{% for tag in post.tags.all %}{{ tag.name }},{% endfor %}">
+{% endblock metas %}
 
 {% block title %}
 {{ post.title }} - 博文	
@@ -20,7 +25,7 @@
 {% endblock content_nav %}
 
 {% block content %}
-<article class="post-item bg-white p-2">
+<article class="post-item bg-white p-2 mb-2">
 	<h4 class="post-item-title">{{ post.title }}</h4>
 	<div class="post-item-meta">
 		<ul class="list-inline small dot-divider text-muted">
@@ -97,6 +102,7 @@
 {% endcomment %}
 {% endblock content %}
 
+{% block sidebar %}
 {% block toc %}
 <div class="card border-0">
 	<div class="card-body">
@@ -105,3 +111,4 @@
 	</div>
 </div>
 {% endblock toc %}
+{% endblock sidebar %}

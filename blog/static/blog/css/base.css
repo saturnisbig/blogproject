@@ -57,3 +57,16 @@ a {
 /*a:hover {*/
 /*text-decoration: none;*/
 /*}*/
+/* 显示下拉菜单 */
+.dropdown:hover .dropdown-menu {
+	display: block;
+	margin-top:0;
+}
+#social-login .login-title {
+	position: relative;
+	display: block;
+	margin-bottom: 10px;
+}
+#social-login span {
+	color: #999;
+}

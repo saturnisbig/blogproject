@@ -77,10 +77,14 @@ INSTALLED_APPS = [
     # 第三方关联账号
     'allauth.socialaccount.providers.weibo',
     'allauth.socialaccount.providers.github',
+    'crispy_forms', # bootstrap表单样式
     # 自己的应用
     'blog',
     'comments',
 ]
+
+# crispy_form设置
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # 使用自定义的用户模型
 AUTH_USER_MODEL = 'users.User'
@@ -92,10 +96,15 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 SITE_ID = 2
+# 禁用注册邮箱验证
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+# 登录方式，用户名和邮箱都可以
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
-ACCOUNT_EMAIL_REQUIRED = 'none'
-
+ACCOUNT_EMAIL_REQUIRED = 'true'
+# 登录后的重定向
 LOGIN_REDIRECT_URL = '/'
+# 设置直接登出，不用确认
+ACCOUNT_LOGOUT_ON_GET = True
 # django-allauth设置相关结束
 
 MIDDLEWARE = [

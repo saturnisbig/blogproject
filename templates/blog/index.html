@@ -1,4 +1,9 @@
-{% extends 'blog/base_index.html' %}
+{% extends 'blog/base_blog.html' %}
+
+{% load static %}
+{% load blog_tags %}
+
+{% block title %}博客首页{% endblock title%}
 
 {% block content_nav %}
 <div class="bg-white p-2">
@@ -43,38 +48,108 @@
 {% if is_paginated %}
 <div class="post-pagination">
 	<nav>
-	<ul class="pagination justify-content-center">
-		{% if page_obj.has_previous %}
-		<li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">上一页</a></li>
-		{% endif %}
-		{% if first %}
-		<li class="page-item"><a class="page-link" href="?page=1">1</a></li>
-		{% endif %}
-		{% if left %}
-		{% if left_has_more %}
-		<li class="page-item">...</li>
-		{% endif %}
-		{% for pg in left %}
-		<li class="page-item"><a class="page-link" href="?page={{pg}}">{{ pg }}</a></li>
-		{% endfor %}
-		{% endif %}
-		<li class="page-item active"><a class="page-link" href="?page={{ page_obj.number }}">{{ page_obj.number }}</a></li>
-		{% if right %}
-		{% for pg in right %}
-		<li class="page-item"><a class="page-link" href="?page={{ pg }}">{{ pg }}</a></li>
-		{% endfor %}
-		{% if right_has_more %}
-		<li class="page-item">...</li>
-		{% endif %}
-		{% endif %}
-		{% if last %}
-		<li class="page-item"><a class="page-link" href="?page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a></li>
-		{% endif %}
-		{% if page_obj.has_next %}
-		<li class="page-item"><a class="page-link"href="?page={{ page_obj.next_page_number }}">下一页</a></li>
-		{% endif %}
-	</ul>
+		<ul class="pagination justify-content-center">
+			{% if page_obj.has_previous %}
+			<li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">上一页</a></li>
+			{% endif %}
+			{% if first %}
+			<li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+			{% endif %}
+			{% if left %}
+			{% if left_has_more %}
+			<li class="page-item">...</li>
+			{% endif %}
+			{% for pg in left %}
+			<li class="page-item"><a class="page-link" href="?page={{pg}}">{{ pg }}</a></li>
+			{% endfor %}
+			{% endif %}
+			<li class="page-item active"><a class="page-link" href="?page={{ page_obj.number }}">{{ page_obj.number }}</a></li>
+			{% if right %}
+			{% for pg in right %}
+			<li class="page-item"><a class="page-link" href="?page={{ pg }}">{{ pg }}</a></li>
+			{% endfor %}
+			{% if right_has_more %}
+			<li class="page-item">...</li>
+			{% endif %}
+			{% endif %}
+			{% if last %}
+			<li class="page-item"><a class="page-link" href="?page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a></li>
+			{% endif %}
+			{% if page_obj.has_next %}
+			<li class="page-item"><a class="page-link"href="?page={{ page_obj.next_page_number }}">下一页</a></li>
+			{% endif %}
+		</ul>
 	</nav>
 </div>
 {% endif %}
 {% endblock content %}
+
+{% block sidebar %}
+<!--
+<div class="card border-0">
+	<h6 class="card-title">最新文章</h6>
+	{% get_recent_posts as post_list %}
+	<div class="card-body">
+	<ul>
+		{% for post in post_list %}
+		<li>
+			<a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+		</li>
+		{% empty %}
+		<li>没有最新文章</li>
+		{% endfor %}
+	</ul>
+	</div>
+</div>
+-->
+<div class="card border-0 bg-white p-2 mb-2">
+	<h6 class="card-title"><i class="fa fa-book mr-2"></i>分类</h6>
+	{% get_categories as categories %}
+	<ul>
+		{% for category in categories %}
+		<li>
+			<a href="{% url 'blog:category' category.pk %}">
+				{{ category.name }}<span class="post-count">({{ category.num_posts }})</span>
+			</a>
+		</li>
+		{% empty %}
+		<li>还没有分类</li>
+		{% endfor %}
+	</ul>
+</div>
+
+<div class="cardw border-0 bg-white p-2 mb-2">
+	<h6 class="card-title"><i class="fa fa-sitemap mr-2"></i>归档</h6>
+	{% archive as date_list %}
+	<ul>
+		{% for date in date_list %}
+		<li>
+			<a href="{% url 'blog:archives' date.year date.month %}">{{ date.year }}年{{ date.month }}月</a>
+		</li>
+		{% empty %}
+		<li>
+			还没有归档
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+
+<div class="card border-0 bg-white p-2 mb-2">
+	<h6 class="card-title"><i class="fa fa-tags mr-2"></i>标签云</h6>
+	{% get_tags as taglist %}
+	<div class="tag-cloud">
+		<ul class="list-inline">
+		{% for tag in taglist %}
+		<li class="list-inline-item small">
+			<a title="{{tag.name}}标签下有{{tag.num_posts}}篇文章" href="{% url 'blog:tag' tag.pk %}">
+			{{ tag.name }}({{ tag.num_posts }})
+		</a>
+		</li>
+		{% empty %}
+		还没有标签.
+		{% endfor %}
+		</ul>
+	</div>
+</div>
+{% endblock sidebar %}
+

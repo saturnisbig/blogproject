@@ -1,0 +1,25 @@
+{% extends 'account/base_account.html' %}
+{% load i18n %}
+{% load account socialaccount %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+{% trans "Sign In" %}
+{% endblock title %}
+
+{% block user_title %}
+{% trans "Sign In" %}
+{% endblock user_title %}
+
+{% block form_body %}
+<form class="login" action="{% url 'account_login' %}" method="post" accept-charset="utf-8">
+	{% csrf_token %}
+	{{ form|crispy }}
+	{% if redirect_field_value %}
+	<input type="hidden" name="{{ redirect_field_name }}" id="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+	{% endif %} 
+	<!--<a href="{% url 'account_reset_password' %}" class="secondaryAction">忘记密码</a>-->
+	<button class="btn btn-info btn-sm rounded-0" type="submit">{% trans "Sign In" %}</button>
+</form>
+{% endblock form_body %}
+
