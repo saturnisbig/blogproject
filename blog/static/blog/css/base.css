@@ -70,3 +70,8 @@ a {
 #social-login span {
 	color: #999;
 }
+/* navbar user icon */
+#navbarDropdown .avatar {
+	border-radius: 50%;
+	width: 40px;
+}

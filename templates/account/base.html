@@ -1,1 +1,41 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% load account %}
+{% load socialaccount %}
+
+{% block title %}
+用户注册	
+{% endblock title %}
+
+{% block main %}
+<div class="col-12 col-sm-8 col-md-6 offset-sm-2 offset-md-3">
+	<div class="card rounded-0 px-3 px-lg-4">
+		<div class="card-header text-center bg-white py-2">
+			<h4 class="my-1 text-info">
+				{% block user_title %}{% endblock %}
+			</h4>
+		</div>
+		<div class="card-body">
+			{% block form_body %}
+			{% endblock form_body %}
+		</div>
+		<div id="social-login" class="text-center mb-5">
+			<div class="login-title">
+				<span> 快速登录 </span>	
+			</div>
+			<div class="login-link">
+				<a class="mx-4" href="{% provider_login_url 'weibo' process='login' %}">
+					<i class="fa fa-weibo fa-2x"></i>
+				</a>	
+				<a class="mx-4" href="{% provider_login_url 'github' process='login' %}">
+					<i class="fa fa-github fa-2x"></i>
+				</a>	
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock main %}
+
+{% block end_file %}
+{% block extra_body %}
+{% endblock %}
+{% endblock %}
