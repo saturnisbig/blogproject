@@ -75,3 +75,13 @@ a {
 	border-radius: 50%;
 	width: 40px;
 }
+.headroom {
+	will-change: transform;
+	transition: transform 300ms linear;
+}
+.headroom--pinned {
+	transform: translateY(0%);
+}
+.headroom--unpinned {
+	transform: translateY(-100%);
+}
