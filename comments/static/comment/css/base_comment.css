@@ -1,0 +1,23 @@
+#no-editor {
+	background-color: #f5f5f5;
+	border-radius: 4px;
+}
+.CodeMirror, .CodeMirror-scroll {
+	min-height: 100px;
+}
+.editor-statusbar span {
+	min-width: 0;
+}
+.editor-toolbar,
+.CodeMirror {
+	border-radius: 0!important;
+}
+.editor-toolbar a {
+	margin: 0 .15em;
+}
+.hidden {
+	display: none!important;
+}
+#comment-list {
+
+}

@@ -3,11 +3,10 @@
 
 from django import forms
 
-from comments.models import Comment
+from comments.models import PostComment
 
 
-class CommentForm(forms.ModelForm):
+class PostCommentForm(forms.ModelForm):
     class Meta:
-        model = Comment
-        fields = ['username', 'email', 'url', 'content']
-
+        model = PostComment
+        fields = ['content']

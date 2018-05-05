@@ -7,7 +7,5 @@ from comments import views
 
 app_name = 'comments'
 urlpatterns = [
-    url(r'^comments/post/(?P<post_pk>\d+)/$', views.post_comment,
-        name='post_comment'),
+    url(r'^add/$', views.post_comment, name='post_comment'),
 ]
-

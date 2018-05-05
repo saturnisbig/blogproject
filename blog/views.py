@@ -9,7 +9,7 @@ from django.utils.text import slugify
 # from django.http import HttpResponse
 
 from blog.models import Entry, Category, Tag
-from comments.forms import CommentForm
+from comments.forms import PostCommentForm
 # from tools import remove_markdown_toc
 
 
@@ -127,8 +127,8 @@ class EntryDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(EntryDetailView, self).get_context_data(**kwargs)
-        form = CommentForm()
-        comment_list = self.object.comment_set.all()
+        form = PostCommentForm()
+        comment_list = self.object.post_comments.all()
         context.update({
             'form': form,
             'comment_list': comment_list
@@ -162,7 +162,7 @@ def detail(request, pk):
                                       'markdown.extensions.toc',
                                   ])
     post.increase_views()
-    form = CommentForm()
+    form = PostCommentForm()
     comment_list = post.comment_set.all()
     context = {'post': post,
                'comment_list': comment_list,
