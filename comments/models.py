@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+import markdown
 
 from django.db import models
 from django.utils.six import python_2_unicode_compatible
@@ -28,6 +29,15 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content[:20]
+
+    def content_to_md(self):
+        body = markdown.markdown(self.content,
+                                 safe_mode='escape',
+                                 extensions=[
+                                     'markdown.extensions.extra',
+                                     'markdown.extensions.codehilite',
+                                 ])
+        return body
 
 
 class PostComment(Comment):

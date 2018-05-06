@@ -1,55 +1,41 @@
 {% load crispy_forms_tags %}
 {% load account socialaccount %}
 
-<div class="card mt-2 rounded-0 border-0" id="comment-area">
-	<div id="editor-area" class="card-body rounded-0 p-3">
-		{% if request.user.is_authenticated %}
-		<div class="card-body border-0 p-0">
-				<textarea name="content" class="form-control rounded-0" id="comment-form"
-					placeholder="评论使用Markdown语法" row=3 required></textarea>
-		</div>
-			<div class="card-footer border-0 bg-white py-0 px-2" id="editor-footer">
-				<button type="button" id="push-com" class="btn btn-info pull-right" 
-					id="push-com" data-csrf="{{ csrf_token }}"
-				       	data-post-id="{{ post.id }}"
-					data-ajax-url="{% url 'comments:post_comment' %}">
-					发表评论
-				</button>
-			</div>
-		{% else %}
-		<div id="no-editor" class="card-body text-center mb-3 mt-2">
-			<div class="login-title">
-				您尚未登录，请
-				<a class="text-danger" href="{% url 'account_login' %}?next={{ request.path }}#comment-area">
-					登录
-				</a>
-				或
-				<a class="text-danger" href="{% url 'account_signup' %}?next={{ request.path }}#comment-area">
-					注册
-				</a>
-				后评论
-			</div>
-			<div class="login-link">
-				<a class="mx-4" href="{% provider_login_url 'weibo' process='login' %}?next={{ request.path }}">
-					<i class="fa fa-weibo fa-2x"></i>
-				</a>	
-				<a class="mx-4" href="{% provider_login_url 'github' process='login' %}?next={{ request.path }}">
-					<i class="fa fa-github fa-2x"></i>
-				</a>	
-			</div>
-		</div>
-		{% endif %}
+<div id="editor-area" class="card-body rounded-0 p-3">
+	{% if request.user.is_authenticated %}
+	<div class="card-body border-0 p-0">
+		<textarea name="content" class="form-control rounded-0" id="comment-form"
+							  placeholder="评论使用Markdown语法" row=3 required></textarea>
 	</div>
-	<div id="comment-list" class="card-body p-2 p-md-3 f-17 mt-3">
-		<ul class="list-unstyled">
-		<div class="mb-3">参与|共 <span></span>{{ comment_list|length }} 条评论</div>
-			{% for comment in comment_list %}
-			<div id="com-{{ comment.id }}" class="comment-parent pt-2">
-				<li 
-			<li>{{ comment.content }}</li>
-			{% empty %}
-			还没有评论呢
-			{% endfor %}
-		</ul>
+	<div class="card-footer border-0 bg-white py-0 px-2" id="editor-footer">
+		<button type="button" id="push-com" class="btn btn-info pull-right" 
+				      id="push-com" data-csrf="{{ csrf_token }}"
+			data-post-id="{{ post.id }}"
+   data-ajax-url="{% url 'comments:post_comment' %}">
+			发表评论
+		</button>
 	</div>
+	{% else %}
+	<div id="no-editor" class="card-body text-center mb-3 mt-2">
+		<div class="login-title">
+			您尚未登录，请
+			<a class="text-danger" href="{% url 'account_login' %}?next={{ request.path }}#comment-area">
+				登录
+			</a>
+			或
+			<a class="text-danger" href="{% url 'account_signup' %}?next={{ request.path }}#comment-area">
+				注册
+			</a>
+			后评论
+		</div>
+		<div class="login-link">
+			<a class="mx-4" href="{% provider_login_url 'weibo' process='login' %}?next={{ request.path }}">
+				<i class="fa fa-weibo fa-2x"></i>
+			</a>	
+			<a class="mx-4" href="{% provider_login_url 'github' process='login' %}?next={{ request.path }}">
+				<i class="fa fa-github fa-2x"></i>
+			</a>	
+		</div>
+	</div>
+	{% endif %}
 </div>

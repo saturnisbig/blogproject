@@ -35,7 +35,7 @@
 			<li class="list-inline-item">{{ post.c_time }}</li>
 			<li class="list-inline-item">{{ post.author.username }}</li>
 			<li class="list-inline-item">{{ post.views }}阅读</li>
-			<li class="list-inline-item">{{ post.comment_set.count }}评论</li>
+			<li class="list-inline-item"><a href="#comment-area">{{ post.post_comments.count }}评论</a></li>
 
 		</ul>
 	</div>
@@ -55,7 +55,10 @@
 		</div>
 	</div>
 </article>
+<div class="card mt-2 rounded-0 border-0" id="comment-area">
 {% include "comment/comment_form.html" %}
+{% include "comment/comment_list.html" %}
+</div>
 {% endblock content %}
 
 {% block sidebar %}

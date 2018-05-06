@@ -1,0 +1,57 @@
+{% load comment_tags %}
+
+<div id="comment-list" class="card-body p-2 p-md-3 f-17 mt-3">
+	<ul class="list-unstyled">
+		<div class="mb-3">{% get_comment_author_count post %}人参与|共 <span></span>{% get_comment_count post %} 条评论</div>
+		{% get_parent_comment post as comment_list %}
+		{% for comment in comment_list %}
+		<div id="com-{{ comment.id }}" class="comment-parent mt-2 pt-2">
+			<li class="media">
+				<img class="avatar" src="{{ comment.author.avatar.url }}" alt="头像">
+				<div class="media-body ml-2">
+					<a class="float-right small mr-2 rep-btn" href="#editor-block" 
+											   data-repid="{{ comment.id }}" data-repuser="{{ comment.author.username }}">回复</a>	
+					<p class="mt-0 mb-1">
+					<strong>{{ comment.author }}</strong>
+					{% if comment.author.is_superuser %}
+					<small class="text-danger">[博主]</small>
+					{% endif %}
+					</p>
+					<p class="small text-muted">{{ forloop.counter }}楼&nbsp;-&nbsp;{{ comment.c_time }}</p>
+				</div>
+			</li>
+			<div class="comment-body">
+				{{ comment.content_to_md|safe }}
+			</div>
+			<ul class="list-unstyled ml-4">
+			{% get_child_comment comment as child_comments %}
+			{% for child_com in child_comments %}
+			<div id="com-{{ child_com.id }}" class="comment-child mt-2 pt-2">
+				<li class="media">
+					<img class="avatar" src="{{ child_com.author.avatar.url }}" alt="头像">
+					<div class="media-body ml-2">
+						<a class="float-right small mr-2 rep-btn" href="#editor-block" 
+												data-repid="{{ child_com.id }}" data-repuser="{{ child_com.author.username }}">回复</a>	
+						<p class="mt-0 mb-1">
+						<strong>{{ child_com.author }}</strong>
+						{% if comment.author.is_superuser %}
+						<small class="text-danger">[博主]</small>
+						{% endif %}
+						<i class="fa fa-share"></i>
+						@{{ child_com.rep_to.author.username }}
+						</p>
+					</div>
+				</li>
+				<div class="comment-body">
+					{{ child_com.content_to_md|safe }}
+				</div>
+			</div>
+			{% endfor %}
+			</ul>
+		</div>
+		{% empty %}
+		还没有评论呢
+		{% endfor %}
+	</ul>
+</div>
+

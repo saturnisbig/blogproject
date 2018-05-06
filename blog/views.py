@@ -128,10 +128,10 @@ class EntryDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(EntryDetailView, self).get_context_data(**kwargs)
         form = PostCommentForm()
-        comment_list = self.object.post_comments.all()
+        # comment_list = self.object.post_comments.all()
         context.update({
             'form': form,
-            'comment_list': comment_list
+            # 'comment_list': comment_list
         })
         return context
 

@@ -28,13 +28,13 @@
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item">
-					{% url 'blog:index' as index_url %}
+						{% url 'blog:index' as index_url %}
 						<a class="nav-link {% if request.path == index_url %}active{% endif %}" href="{{ index_url }}"><i class="fa fa-home mr-1"></i>首页</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="{{ index_url }}">
-						<i class="fa fa-blogger mr-1"></i>
-						博客
+							<i class="fa fa-blogger mr-1"></i>
+							博客
 						</a>
 					</li>
 				</ul>
@@ -44,41 +44,41 @@
 	    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 	    </form>
 				-->
-			</div>
-			<ul class="navbar-nav">
-				{% if user.is_authenticated %}
-				<li class="nav-item dropdown">
-					<a id="navbarDropdown" class="nav-link dropdown-toggle py-0 my-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" title="{{ user.username }}, 欢迎回来!">
-						{% if user.socialaccount_set.exists and user.avatar.url != '/media/avatar/default.png' %}
-						<img class="avatar" src="{{ user.socialaccount_set.all.0.get_avatar_url }}" alt="{{ user.username }}" />
-						{% else %}
-						<img class="avatar" src="{{ user.avatar.url }}" alt="{{ user.username }}" />
-						{% endif %}
-					</a>
-					<div class="dropdown-menu dropdown-menu-right mt-0 rounded-0 border-0" aria-labelledby="navbarDropdown">
-						 <a class="dropdown-item" href="{% url 'users:profile' %}">
-						<i class="fa fa-user text-info mr-1"></i>
-						个人资料
+				<ul class="navbar-nav">
+					{% if user.is_authenticated %}
+					<li class="nav-item dropdown">
+						<a id="navbarDropdown" class="nav-link dropdown-toggle py-0 my-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" title="{{ user.username }}, 欢迎回来!">
+							{% if user.socialaccount_set.exists and user.avatar.url != '/media/avatar/default.png' %}
+							<img class="avatar" src="{{ user.socialaccount_set.all.0.get_avatar_url }}" alt="{{ user.username }}" />
+							{% else %}
+							<img class="avatar" src="{{ user.avatar.url }}" alt="{{ user.username }}" />
+							{% endif %}
 						</a>
-						<a class="dropdown-item" href="{% url 'account_logout' %}">
-						<i class="fa fa-sign-out text-info mr-1" aria-hidden="true"></i>登出</a>
-					</div>
-				</li>	
-				{% else %}
-				<li class="nav-item">
-					<a class="nav-link" href="{% url 'account_login' %}">
-						<i class="fa fa-sign-in mr-1"></i>
-						登录
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{% url 'account_signup' %}">
-						<i class="fa fa-registered mr-1"></i>
-						注册</a>
-				</li>
+						<div class="dropdown-menu dropdown-menu-right mt-0 rounded-0 border-0" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="{% url 'users:profile' %}">
+								<i class="fa fa-user text-info mr-1"></i>
+								个人资料
+							</a>
+							<a class="dropdown-item" href="{% url 'account_logout' %}">
+								<i class="fa fa-sign-out text-info mr-1" aria-hidden="true"></i>登出</a>
+						</div>
+					</li>	
+					{% else %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'account_login' %}">
+							<i class="fa fa-sign-in mr-1"></i>
+							登录
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'account_signup' %}">
+							<i class="fa fa-registered mr-1"></i>
+							注册</a>
+					</li>
 
-				{% endif %}
-			</ul>
+					{% endif %}
+				</ul>
+			</div>
 		</nav>
 
 		<div class="container">
