@@ -1,4 +1,4 @@
-{% load comment_tags %}
+{% load comment_tags user_tags %}
 
 <div id="comment-list" class="card-body p-2 p-md-3 f-17 mt-3">
 	<ul class="list-unstyled">
@@ -7,10 +7,12 @@
 		{% for comment in comment_list %}
 		<div id="com-{{ comment.id }}" class="comment-parent mt-2 pt-2">
 			<li class="media">
-				<img class="avatar" src="{{ comment.author.avatar.url }}" alt="头像">
+				{% show_user_avatar request.user %}
 				<div class="media-body ml-2">
+					{% if request.user.is_authenticated %}
 					<a class="float-right small mr-2 rep-btn" href="#editor-block" 
-											   data-repid="{{ comment.id }}" data-repuser="{{ comment.author.username }}">回复</a>	
+					       data-repid="{{ comment.id }}" data-repuser="{{ comment.author.username }}">回复</a>	
+					{% endif %}
 					<p class="mt-0 mb-1">
 					<strong>{{ comment.author }}</strong>
 					{% if comment.author.is_superuser %}
@@ -24,29 +26,31 @@
 				{{ comment.content_to_md|safe }}
 			</div>
 			<ul class="list-unstyled ml-4">
-			{% get_child_comment comment as child_comments %}
-			{% for child_com in child_comments %}
-			<div id="com-{{ child_com.id }}" class="comment-child mt-2 pt-2">
-				<li class="media">
-					<img class="avatar" src="{{ child_com.author.avatar.url }}" alt="头像">
-					<div class="media-body ml-2">
-						<a class="float-right small mr-2 rep-btn" href="#editor-block" 
-												data-repid="{{ child_com.id }}" data-repuser="{{ child_com.author.username }}">回复</a>	
-						<p class="mt-0 mb-1">
-						<strong>{{ child_com.author }}</strong>
-						{% if comment.author.is_superuser %}
-						<small class="text-danger">[博主]</small>
-						{% endif %}
-						<i class="fa fa-share"></i>
-						@{{ child_com.rep_to.author.username }}
-						</p>
+				{% get_child_comment comment as child_comments %}
+				{% for child_com in child_comments %}
+				<div id="com-{{ child_com.id }}" class="comment-child mt-2 pt-2">
+					<li class="media">
+						{% show_user_avatar request.user %}
+						<div class="media-body ml-2">
+							{% if request.user.is_authenticated %}
+							<a class="float-right small mr-2 rep-btn" href="#editor-block" 
+						 data-repid="{{ child_com.id }}" data-repuser="{{ child_com.author.username }}">回复</a>	
+							{% endif %}
+							<p class="mt-0 mb-1">
+							<strong>{{ child_com.author }}</strong>
+							{% if comment.author.is_superuser %}
+							<small class="text-danger">[博主]</small>
+							{% endif %}
+							<i class="fa fa-share"></i>
+							@{{ child_com.rep_to.author.username }}
+							</p>
+						</div>
+					</li>
+					<div class="comment-body">
+						{{ child_com.content_to_md|safe }}
 					</div>
-				</li>
-				<div class="comment-body">
-					{{ child_com.content_to_md|safe }}
 				</div>
-			</div>
-			{% endfor %}
+				{% endfor %}
 			</ul>
 		</div>
 		{% empty %}

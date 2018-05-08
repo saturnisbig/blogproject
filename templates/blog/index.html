@@ -38,7 +38,7 @@
 	<div class="entry-item-statistic small text-muted">
 		<a class="mr-2" role="button" href="{{ post.category.get_absolute_url }}"><i class="fa fa-book mr-1" aria-hidden="true"></i>{{ post.category.name }}</a>
 		<a class="mr-2" role="button" href="{{ post.get_absolute_url }}"><i class="fa fa-eye mr-1" aria-hidden="true"></i>{{ post.views }}</a>
-		<a class="mr-2" role="button" href="{{ post.get_absolute_url }}#comment"><i class="fa  fa-comment mr-1" aria-hidden="true"></i>{{ post.comment_set.count }}</a>
+		<a class="mr-2" role="button" href="{{ post.get_absolute_url }}#comment-area"><i class="fa  fa-comment mr-1" aria-hidden="true"></i>{{ post.post_comments.count }}</a>
 	</div>
 </article>
 {% empty %}

@@ -1,4 +1,4 @@
-{% load static %}
+{% load static user_tags %}
 <!doctype html>
 <html lang="en">
 	<head>
@@ -48,11 +48,7 @@
 					{% if user.is_authenticated %}
 					<li class="nav-item dropdown">
 						<a id="navbarDropdown" class="nav-link dropdown-toggle py-0 my-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" title="{{ user.username }}, 欢迎回来!">
-							{% if user.socialaccount_set.exists and user.avatar.url != '/media/avatar/default.png' %}
-							<img class="avatar" src="{{ user.socialaccount_set.all.0.get_avatar_url }}" alt="{{ user.username }}" />
-							{% else %}
-							<img class="avatar" src="{{ user.avatar.url }}" alt="{{ user.username }}" />
-							{% endif %}
+							{% show_user_avatar request.user %}
 						</a>
 						<div class="dropdown-menu dropdown-menu-right mt-0 rounded-0 border-0" aria-labelledby="navbarDropdown">
 							<a class="dropdown-item" href="{% url 'users:profile' %}">
