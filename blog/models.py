@@ -14,8 +14,8 @@ from django.conf import settings
 @python_2_unicode_compatible
 class Category(models.Model):
     name = models.CharField('类别名称', max_length=200)
-    c_time = models.DateTimeField(auto_now_add=True)
-    m_time = models.DateTimeField(auto_now=True)
+    c_time = models.DateTimeField('创建时间', auto_now_add=True)
+    m_time = models.DateTimeField('修改时间', auto_now=True)
 
     class Meta:
         verbose_name_plural = 'Categories'
@@ -30,8 +30,8 @@ class Category(models.Model):
 @python_2_unicode_compatible
 class Tag(models.Model):
     name = models.CharField('标签', max_length=150)
-    c_time = models.DateTimeField(auto_now_add=True)
-    m_time = models.DateTimeField(auto_now=True)
+    c_time = models.DateTimeField('创建时间', auto_now_add=True)
+    m_time = models.DateTimeField('修改时间', auto_now=True)
 
     def __str__(self):
         return self.name
