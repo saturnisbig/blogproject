@@ -142,9 +142,9 @@ class TagView(IndexView):
         return super(TagView, self).get_queryset().filter(tags=tag)
 
 
-def popular(request):
-    post_list = Entry.objects.order_by('-views')
-    return render(request, 'blog/index.html', {'post_list': post_list})
+class PopularView(IndexView):
+    def get_queryset(self):
+        return super(PopularView, self).get_queryset().order_by('-views')
 
 
 def index(request):
