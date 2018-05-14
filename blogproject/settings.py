@@ -81,6 +81,7 @@ INSTALLED_APPS = [
     # 自己的应用
     'blog',
     'comments',
+    'box',
 ]
 
 # crispy_form设置

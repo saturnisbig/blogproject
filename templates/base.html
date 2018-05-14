@@ -32,9 +32,14 @@
 						<a class="nav-link {% if request.path == index_url %}active{% endif %}" href="{{ index_url }}"><i class="fa fa-home mr-1"></i>首页</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="{{ index_url }}">
+						<a class="nav-link {% if request.path == index_url %}active{% endif %}" href="{{ index_url }}">
 							<i class="fa fa-blogger mr-1"></i>
 							博客
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link {% if request.path == 'box:index' %}active{% endif %}" href="{{ index_url }}">
+							文摘
 						</a>
 					</li>
 				</ul>
