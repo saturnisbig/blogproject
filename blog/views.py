@@ -2,6 +2,7 @@
 
 import markdown
 from markdown.extensions.toc import TocExtension
+import time
 
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
@@ -108,11 +109,25 @@ class EntryDetailView(DetailView):
 
     def get(self, request, *args, **kwargs):
         response = super(EntryDetailView, self).get(request, *args, **kwargs)
-        self.object.increase_views()
+        # self.object.increase_views()
         return response
 
     def get_object(self, queryset=None):
         post = super(EntryDetailView, self).get_object(queryset=queryset)
+        u = self.request.user
+        ses = self.request.session
+        the_key = 'is_read_{}'.format(post.id)
+        if u != post.author:
+            last_visit_time = ses.get(the_key)
+            if not last_visit_time:
+                post.increase_views()
+                ses[the_key] = time.time()
+            else:
+                now_time = time.time()
+                del_t = now_time - last_visit_time
+                if del_t > 60 * 30:
+                    post.increase_views()
+                    ses[the_key] = time.time()
         md = markdown.Markdown(extensions=[
             'markdown.extensions.extra',
             'markdown.extensions.codehilite',

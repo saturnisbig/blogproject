@@ -7,7 +7,7 @@
 		{% for comment in comment_list %}
 		<div id="com-{{ comment.id }}" class="comment-parent mt-2 pt-2">
 			<li class="media">
-				{% show_user_avatar request.user %}
+				{% show_user_avatar comment.author %}
 				<div class="media-body ml-2">
 					{% if request.user.is_authenticated %}
 					<a class="float-right small mr-2 rep-btn" href="#editor-block" 
@@ -15,7 +15,7 @@
 					{% endif %}
 					<p class="mt-0 mb-1">
 					<strong>{{ comment.author }}</strong>
-					{% if comment.author.is_superuser %}
+					{% if comment.author == post.author %}
 					<small class="text-danger">[博主]</small>
 					{% endif %}
 					</p>
