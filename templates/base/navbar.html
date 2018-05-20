@@ -1,0 +1,57 @@
+{% load static user_tags %}
+
+<nav class="navbar navbar-expand-md navbar-light fixed-top bg-white blog-navbar headroom">
+	<a class="navbar-brand" href="{% url 'blog:index' %}">Teddy &amp; Pudding</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarCollapse">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				{% url 'blog:index' as index_url %}
+				<a class="nav-link {% if request.path == index_url %}active{% endif %}" href="{{ index_url }}"><i class="fa fa-home mr-1"></i>首页</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link {% if request.path == index_url %}active{% endif %}" href="{{ index_url }}">
+					<i class="fa fa-blogger mr-1"></i>
+					博客
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link {% if request.path == 'box:index' %}active{% endif %}" href="{{ index_url }}">
+					文摘
+				</a>
+			</li>
+		</ul>
+		<ul class="navbar-nav">
+			{% if user.is_authenticated %}
+			<li class="nav-item dropdown">
+				<a id="navbarDropdown" class="nav-link dropdown-toggle py-0 my-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" title="{{ user.username }}, 欢迎回来!">
+					{% show_user_avatar request.user %}
+				</a>
+				<div class="dropdown-menu dropdown-menu-right mt-0 rounded-0 border-0" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item" href="{% url 'users:profile' %}">
+						<i class="fa fa-user text-info mr-1"></i>
+						个人资料
+					</a>
+					<a class="dropdown-item" href="{% url 'account_logout' %}">
+						<i class="fa fa-sign-out text-info mr-1" aria-hidden="true"></i>登出</a>
+				</div>
+			</li>	
+			{% else %}
+			<li class="nav-item">
+				<a class="nav-link" href="{% url 'account_login' %}">
+					<i class="fa fa-sign-in mr-1"></i>
+					登录
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{% url 'account_signup' %}">
+					<i class="fa fa-registered mr-1"></i>
+					注册
+				</a>
+			</li>
+			{% endif %}
+		</ul>
+	</div>
+</nav>
