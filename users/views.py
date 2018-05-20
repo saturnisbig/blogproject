@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from .forms import ProfileForm
 
@@ -18,6 +19,7 @@ def change_profile(request):
         form = ProfileForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
+            messages.success(request, '个人资料更新成功！')
             return redirect('users:profile')
     else:
         form = ProfileForm(instance=request.user)
