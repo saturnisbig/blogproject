@@ -46,7 +46,8 @@ def to_hex(value):
         value = value[4:-1]
     if value.startswith('(') and value.endswith(')'):
         value = value[1:-1]
-    rgb = (int(v) for v in value.split(','))
+    rgb = list(int(v) for v in value.split(','))
+    print rgb
     if len(rgb) != 3 or rgb[0] > 255 or rgb[1] > 255 or rgb[2] > 255:
         return ''
     r = '#%02x%02x%02x' % (rgb[0], rgb[1], rgb[2])
