@@ -8,17 +8,19 @@
 
 {% block main %}
 <div class="col col-md-9">
+	<h5>身份证属地查询</h5>
 	<div class="input-group mb-3">
-		<input id="idnumber" name="color" type="text" class="form-control" placeholder="身份证号或前6位" aria-label="id value" aria-describedby="basic-addon2">
+		<input id="idnumber" name="cardid" type="text" class="form-control" placeholder="身份证号或前6位" aria-label="id value" aria-describedby="basic-addon2">
 		<div class="input-group-append">
-			<button id="getid" class="btn btn-outline-info" type="button" data-csrf="{{ csrf_token }}"
-			data-ajax-url="{% url 'tool:getid' %}">
-				转换
+			<button id="get-cardid" class="btn btn-outline-info" type="button"
+							data-csrf="{{ csrf_token }}"
+			data-ajax-url="{% url 'tool:get_cardid' %}">
+				查找
 			</button>
 		</div>
 	</div>
 	<div id="result">
-
+		查询结果显示
 	</div>
 </div>
 {% endblock %}
@@ -26,4 +28,3 @@
 {% block end_file %}
 <script src="{% static 'tool/js/idplace.js' %}" charset="utf-8"></script>
 {% endblock %}
-

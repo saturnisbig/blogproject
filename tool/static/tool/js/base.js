@@ -22,8 +22,8 @@ $('#convert-rgbcolor').click(function() {
 		},
 		dataType: 'json',
 		success: successFunc,
-		error: function(ret) {
-			alert(ret.msg);
+		error: function() {
+			alert('转换失败');
 		}
 
 	});
@@ -60,8 +60,8 @@ $('#convert-hexcolor').click(function() {
 		},
 		dataType: 'json',
 		success: successFunc,
-		error: function(ret) {
-			alert(ret.msg);
+		error: function() {
+			alert('转换失败，请检查输入');
 		}
 
 	});

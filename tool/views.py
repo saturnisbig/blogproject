@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 # from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
+
+from tool.models import CardID
 
 
 def index(request):
@@ -17,7 +19,6 @@ def webcolor(request):
 
 @require_POST
 def convert_color(request):
-    print 'here'
     result = ''
     msg = '转换失败, 检查输入值格式'
     ret = {}
@@ -45,10 +46,10 @@ def to_hex(value):
         value = value[4:-1]
     if value.startswith('(') and value.endswith(')'):
         value = value[1:-1]
-    r, g, b = (int(v) for v in value.split(','))
-    if r > 255 or b > 255 or g > 255:
+    rgb = (int(v) for v in value.split(','))
+    if len(rgb) != 3 or rgb[0] > 255 or rgb[1] > 255 or rgb[2] > 255:
         return ''
-    r = '#%02x%02x%02x' % (r, g, b)
+    r = '#%02x%02x%02x' % (rgb[0], rgb[1], rgb[2])
     return r.upper()
 
 
@@ -64,5 +65,28 @@ def id_place(request):
 
 
 @require_POST
-def getid(request):
-    pass
+def get_cardid(request):
+    msg = '查询失败'
+    ret = {}
+    if request.is_ajax():
+        data = request.POST
+        idnumber = data.get('cardid')
+        if len(idnumber) > 6:
+            idnumber = idnumber[:7]
+        # try:
+            # cardid = CardID.objects.get(number=idnumber)
+        # except CardID.DoesNotExist:
+        #     cardid = None
+        cardid = get_object_or_404(CardID, number=idnumber)
+        # 获取所属省份
+        province_number = idnumber[:2] + '0000'
+        province = get_object_or_404(CardID, number=province_number)
+        if not cardid:
+            msg = '未找到，请检查输入！'
+        else:
+            ret['number'] = cardid.number
+            ret['place'] = province.place + ',' + cardid.place
+            ret['msg'] = '查询成功'
+            return JsonResponse(ret)
+    ret['msg'] = msg
+    return JsonResponse(ret)
