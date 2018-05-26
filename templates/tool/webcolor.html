@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+RGB与16进制颜色转换
+{% endblock %}
+
+{% block main %}
+<div class="col col-md-9">
+	<div class="row">
+		<div id="rgb2hex" class="col col-md-4">
+			<p>RGB转换为16进制</p>	
+			<div class="input-group mb-3">
+				<input id="rgbcolor" name="color" type="text" class="form-control" placeholder="100,100,100值之间以逗号分开" aria-label="RGB value" aria-describedby="basic-addon2">
+				<div class="input-group-append">
+					<button id="convert-rgbcolor" class="btn btn-outline-info" type="button"
+					 data-csrf="{{ csrf_token }}"
+					 data-convert-type="2hex"
+      					 data-ajax-url="{% url 'tool:convert_color' %}">
+						转换
+					</button>
+				</div>
+			</div>
+			<div id="rgb-result" class="name">
+
+			</div>
+		</div>
+		<div id="hex2rgb" class="col col-md-4">
+			<p>16进制转换为RGB</p>	
+			<div class="input-group mb-3">
+				<input id="hexcolor" name="color" type="text" class="form-control"
+						  placeholder="#FFFFFF,6位十六进制值" aria-label="HEX value" aria-describedby="basic-addon2">
+				<div class="input-group-append">
+					<button id="convert-hexcolor" class="btn btn-outline-info" type="button"
+								data-csrf="{{ csrf_token }}"
+	data-convert-type="2rgb"
+ data-ajax-url="{% url 'tool:convert_color' %}">
+						转换
+					</button>
+				</div>
+
+			</div>
+			<div id="hex-result" class="name">
+
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block end_file %}
+<script src="{% static 'tool/js/base.js' %}" charset="utf-8"></script>
+{% endblock %}

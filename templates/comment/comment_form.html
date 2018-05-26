@@ -9,9 +9,8 @@
 	</div>
 	<div class="card-footer border-0 bg-white py-0 px-2" id="editor-footer">
 		<button type="button" id="push-com" class="btn btn-info pull-right" 
-				      id="push-com" data-csrf="{{ csrf_token }}"
-			data-post-id="{{ post.id }}"
-   data-ajax-url="{% url 'comments:post_comment' %}">
+		data-csrf="{{ csrf_token }}" data-post-id="{{ post.id }}"
+                data-ajax-url="{% url 'comments:post_comment' %}">
 			发表评论
 		</button>
 	</div>
@@ -29,8 +28,8 @@
 			后评论
 		</div>
 		<div class="login-link">
-       <!--                 <a class="mx-4" href="{% provider_login_url 'weibo' process='login' %}?next={{ request.path }}">-->
-				<!--<i class="fa fa-weibo fa-2x"></i>-->
+			<!--                 <a class="mx-4" href="{% provider_login_url 'weibo' process='login' %}?next={{ request.path }}">-->
+			<!--<i class="fa fa-weibo fa-2x"></i>-->
 			<!--</a>	-->
 			<a class="mx-4" href="{% provider_login_url 'github' process='login' %}?next={{ request.path }}">
 				<i class="fa fa-github fa-2x"></i>

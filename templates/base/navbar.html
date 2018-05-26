@@ -18,8 +18,13 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link {% if request.path == 'box:index' %}active{% endif %}" href="{{ index_url }}">
+				<a class="nav-link {% if request.path == 'blog:index' %}active{% endif %}" href="{% url 'blog:index' %}">
 					文摘
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link {% if request.path == 'tool:index' %}active{% endif %}" href="{% url 'tool:index' %}">
+				在线工具
 				</a>
 			</li>
 		</ul>

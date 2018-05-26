@@ -28,4 +28,6 @@ urlpatterns = [
     url(r'^accounts/', include('users.urls', namespace='users')),
     url(r'^', include('blog.urls')),
     url(r'^box/', include('box.urls')),
+    # url(r'^api/', include('api.urls')),
+    url(r'^tool/', include('tool.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

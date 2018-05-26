@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+身份证属地查询
+{% endblock %}
+
+{% block main %}
+<div class="col col-md-9">
+	<div class="input-group mb-3">
+		<input id="idnumber" name="color" type="text" class="form-control" placeholder="身份证号或前6位" aria-label="id value" aria-describedby="basic-addon2">
+		<div class="input-group-append">
+			<button id="getid" class="btn btn-outline-info" type="button" data-csrf="{{ csrf_token }}"
+			data-ajax-url="{% url 'tool:getid' %}">
+				转换
+			</button>
+		</div>
+	</div>
+	<div id="result">
+
+	</div>
+</div>
+{% endblock %}
+
+{% block end_file %}
+<script src="{% static 'tool/js/idplace.js' %}" charset="utf-8"></script>
+{% endblock %}
+

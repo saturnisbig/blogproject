@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+在线工具，方便开发使用	
+{% endblock %}
+
+{% block main %}
+<div class="col">
+	<div class="card">
+		<div class="card-header">
+			<a href="{% url 'tool:webcolor' %}">RGB与16进制颜色转换</a>
+		</div>
+		<div class="card-body">
+			<p class="card-text">
+			实现RGB颜色值与16进制颜色值之间的转换，写CSS时有用。
+			</p>
+		</div>
+	</div>
+</div>
+<div class="col ml-2">
+		<div class="card-header">
+			<a href="{% url 'tool:id_place' %}">身份证属地查询</a>
+		</div>
+		<div class="card-body">
+			<p class="card-text">
+			提供身份在属地查询，根据身份证的前6位判断。
+			</p>
+		</div>
+</div>
+<div class="col ml-2">
+	Sitemap主动推送	
+</div>
+<div class="col ml-2">
+	待定1
+</div>
+{% endblock %}

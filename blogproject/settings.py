@@ -82,6 +82,9 @@ INSTALLED_APPS = [
     'blog',
     'comments',
     'box',
+    # 'rest_framework',
+    # 'api',
+    'tool',
 ]
 
 # crispy_form设置
