@@ -85,6 +85,8 @@ INSTALLED_APPS = [
     # 'rest_framework',
     # 'api',
     'tool',
+    'mptt',
+    'country',
 ]
 
 # crispy_form设置
