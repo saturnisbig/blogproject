@@ -30,4 +30,5 @@ urlpatterns = [
     url(r'^box/', include('box.urls')),
     # url(r'^api/', include('api.urls')),
     url(r'^tool/', include('tool.urls')),
+    url(r'^country/', include('country.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

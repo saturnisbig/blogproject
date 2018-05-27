@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% load mptt_tags %}
+
+{% block title %}
+各国信息导览
+{% endblock %}
+
+{% block main %}
+
+<ul>
+	<li>各国信息</li>
+	<ul>
+		{% recursetree nodes %}
+		<li>
+			{% if node.is_leaf_node %}
+			<a href="#">{{ node.name }}</a>
+			{% else %}
+			<a href="#">{{ node.name }}</a>
+			<ul>
+				{{ children }}
+			</ul>
+			{% endif %}
+		</li>
+		{% endrecursetree %}
+	</ul>
+</ul>
+{% endblock %}
+
