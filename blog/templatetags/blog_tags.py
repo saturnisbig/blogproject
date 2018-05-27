@@ -27,3 +27,12 @@ def get_categories():
 @register.simple_tag
 def get_tags():
     return Tag.objects.annotate(num_posts=Count('entry')).filter(num_posts__gt=0)
+
+@register.simple_tag
+def get_previous_post(post):
+    return Entry.objects.filter(pk__lt=post.pk).order_by('-c_time').first()
+
+
+@register.simple_tag
+def get_next_post(post):
+    return Entry.objects.filter(pk__gt=post.pk).order_by('c_time').first()
