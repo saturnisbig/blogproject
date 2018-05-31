@@ -8,22 +8,28 @@
 
 {% block main %}
 
-<ul>
-	<li>各国信息</li>
+<div class="col col-md-8">
+	<h6>各国信息导航</h6>
 	<ul>
+		{% if nodes %}
 		{% recursetree nodes %}
 		<li>
 			{% if node.is_leaf_node %}
-			<a href="#">{{ node.name }}</a>
+			<a href="{% url 'country:get_organisation' node.id %}">
+			{{ node.name }}
+			</a>
 			{% else %}
-			<a href="#">{{ node.name }}</a>
-			<ul>
-				{{ children }}
+			{{ node.name }}
+			<ul class="children">
+				{{ children}}
 			</ul>
 			{% endif %}
 		</li>
 		{% endrecursetree %}
+		{% else %}
+		还没有国家信息
+		{% endif %}
 	</ul>
-</ul>
+</div>
 {% endblock %}
 
