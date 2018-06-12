@@ -11,6 +11,10 @@ class Subject(models.Model):
     c_time = models.DateTimeField('创建时间', auto_now_add=True)
     m_time = models.DateTimeField('修改时间', auto_now=True)
 
+    class Meta:
+        verbose_name = '主题'
+        verbose_name_plural = verbose_name
+
     def __str__(self):
         return self.name
 
@@ -18,7 +22,11 @@ class Subject(models.Model):
 @python_2_unicode_compatible
 class Author(models.Model):
     name = models.CharField('姓名', max_length=100)
-    birth_date = models.DateField('出生日期', blank=True)
+    birth_date = models.DateField('出生日期', blank=True, null=True)
+
+    class Meta:
+        verbose_name = '作者'
+        verbose_name_plural = verbose_name
 
     def __str__(self):
         return self.name
@@ -27,6 +35,10 @@ class Author(models.Model):
 @python_2_unicode_compatible
 class Publisher(models.Model):
     name = models.CharField('出版社名称', max_length=300)
+
+    class Meta:
+        verbose_name = '出版社'
+        verbose_name_plural = verbose_name
 
     def __str__(self):
         return self.name
@@ -38,7 +50,12 @@ class Book(models.Model):
     authors = models.ManyToManyField(Author, verbose_name='作者')
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE,
                                   verbose_name='出版社')
-    pub_date = models.DateField('出版日期', blank=True)
+    pub_date = models.DateField('出版日期', blank=True, null=True)
+
+    class Meta:
+        verbose_name = '书本'
+        verbose_name_plural = verbose_name
+        ordering = ('-name',)
 
     def __str__(self):
         return self.name
