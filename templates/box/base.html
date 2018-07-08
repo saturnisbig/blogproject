@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="col-md-8">
+	<div class="content-nav mb-2">
+		{% block content_nav %}
+		内容区导航，面包屑导航等	
+		{% endblock content_nav %}
+	</div>
+	<div class="p-1">
+		{% block content %}
+		这是默认的内容区
+		{% endblock content %}
+	</div>
+</div>
+<div class="col-md-3 ml-2">
+	{% block sidebar %}
+	边栏区域
+	{% endblock sidebar %}
+</div>
+{% endblock main %}

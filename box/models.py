@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+import markdown
 
 from django.db import models
 from django.utils.six import python_2_unicode_compatible
@@ -77,3 +78,11 @@ class Summary(models.Model):
 
     def __str__(self):
         return self.content[:50]
+
+    def save(self, *args, **kwargs):
+        md = markdown.Markdown(extensions=[
+            'markdown.extensions.extra',
+            'markdown.extensions.codehilite',
+        ])
+        self.content = md.convert(self.content)
+        super(Summary, self).save(*args, **kwargs)

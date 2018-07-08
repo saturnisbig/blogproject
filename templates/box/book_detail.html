@@ -1,0 +1,51 @@
+{% extends 'box/base.html' %}
+
+{% block title %}文摘列表-{{ book.name }}{% endblock title%}
+
+{% block content_nav %}
+<div class="bg-white p-2">
+	{{ book.name }} - 文摘
+</div>
+{% endblock content_nav %}
+
+{% block content %}
+{% for summary in book.summary_set.all %}
+<div class="post-item mb-2 bg-white p-2">
+	{{ summary.content|safe }}
+	<p>《{{ summary.book.name }}》</p>
+	<ul class="list-inline">
+		<span>作者：</span>
+		{% for author in summary.book.authors.all %}
+		<li class="list-inline-item text-secondary small">
+			<a href="#">
+				{{author.name}}
+			</a>
+		</li>
+		{% endfor %}
+	</ul>
+	<ul class="list-inline">
+		<span>主题：</span>
+		{% for subject in summary.subjects.all %}
+		<li class="list-inline-item text-secondary small">
+			<a href="#">
+				{{subject.name}}
+			</a>
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+{% endfor %}
+{% endblock content %}
+
+{% block sidebar %}
+<div class="card border-0 bg-white p-2 mb-2">
+	<h6 class="card-title"><i class="fa fa-book mr-2"></i>最近的书</h6>
+	<ul>
+		<li>
+			<a href="#">
+			</a>
+		</li>
+		<li>还没有在读书籍</li>
+	</ul>
+</div>
+{% endblock sidebar %}
