@@ -82,12 +82,54 @@ def get_cardid(request):
         # 获取所属省份
         province_number = idnumber[:2] + '0000'
         province = get_object_or_404(CardID, number=province_number)
+        # 获取所属城市
+        city_number = idnumber[:4] + '00'
+        city = get_object_or_404(CardID, number=city_number)
+        place = ''
+        if province:
+            place = province.place
+        if city:
+            place = place + ',' + city.place
         if not cardid:
             msg = '未找到，请检查输入！'
         else:
             ret['number'] = cardid.number
-            ret['place'] = province.place + ',' + cardid.place
+            ret['place'] = place + ',' + cardid.place
             ret['msg'] = '查询成功'
+            return JsonResponse(ret)
+    ret['msg'] = msg
+    return JsonResponse(ret)
+
+
+@require_POST
+def get_cardname(request):
+    msg = '查询失败'
+    ret = {}
+    if request.is_ajax():
+        data = request.POST
+        idname = data.get('cardname')
+        # 一个地方可能有新旧号
+        cards = CardID.objects.filter(place__icontains=idname)
+        # 获取所属省份
+        if not cards:
+            msg = '未找到，请检查输入！'
+        else:
+            province_number = cards[0].number[:2] + '0000'
+            province = get_object_or_404(CardID, number=province_number)
+            ret['cards'] = []
+            place = ''
+            for card in cards:
+                if province:
+                    place = province.place
+                city_number = card.number[:4] + '00'
+                city = get_object_or_404(CardID, number=city_number)
+                if city:
+                    place = place + ',' + city.place
+                place = place + ',' + card.place
+                ret['cards'].append({'number': card.number,
+                                     'place': place})
+            ret['msg'] = '查询成功'
+            # print ret
             return JsonResponse(ret)
     ret['msg'] = msg
     return JsonResponse(ret)

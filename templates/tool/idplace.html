@@ -19,6 +19,16 @@
 			</button>
 		</div>
 	</div>
+	<div class="input-group mb-3">
+		<input id="idname" name="cardname" type="text" class="form-control" placeholder="属地名称" aria-label="id value" aria-describedby="basic-addon2">
+		<div class="input-group-append">
+			<button id="get-cardname" class="btn btn-outline-info" type="button"
+							data-csrf="{{ csrf_token }}"
+			data-ajax-url="{% url 'tool:get_cardname' %}">
+				查找
+			</button>
+		</div>
+	</div>
 	<div id="result">
 		查询结果显示
 	</div>

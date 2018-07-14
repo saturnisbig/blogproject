@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^convert_color/$', views.convert_color, name='convert_color'),
     url(r'^idplace/$', views.id_place, name='id_place'),
     url(r'^getcardid/$', views.get_cardid, name='get_cardid'),
+    url(r'^getcardname/$', views.get_cardname, name='get_cardname'),
 ]
