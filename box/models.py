@@ -62,14 +62,26 @@ class Book(models.Model):
         return self.name
 
 
+# @python_2_unicode_compatible
+# class Think(models.Model):
+#     content = models.TextField('摘要感想')
+#     c_time = models.DateTimeField('创建时间', auto_now_add=True)
+#     m_time = models.DateTimeField('修改时间', auto_now=True)
+
+#     def __str__(self):
+#         return self.content[:30]
+
+
 @python_2_unicode_compatible
 class Summary(models.Model):
     content = models.TextField('摘要内容')
     c_time = models.DateTimeField('创建时间', auto_now_add=True)
     m_time = models.DateTimeField('修改时间', auto_now=True)
+    page = models.TextField('页码信息', blank=True)
 
     subjects = models.ManyToManyField(Subject, verbose_name='所属主题')
     book = models.ForeignKey(Book, verbose_name='所属书本')
+    # think = models.ForeignKey(Think, verbose_name='感想', blank=True)
 
     class Meta:
         verbose_name = '读书摘要'
