@@ -1,15 +1,15 @@
 {% extends 'box/base.html' %}
 
-{% block title %}文摘列表-{{ book.name }}{% endblock title%}
+{% block title %}文摘列表-{{ subject.name }}{% endblock title%}
 
 {% block content_nav %}
 <div class="bg-white p-2">
-	书籍：{{ book.name }} -> 文摘
+	主题：{{ subject.name }} -> 文摘
 </div>
 {% endblock content_nav %}
 
 {% block content %}
-{% for summary in book.summary_set.all %}
+{% for summary in subject.summary_set.all %}
 <div class="post-item mb-2 bg-white p-2">
 	{{ summary.content|safe }}
 	<p>《{{ summary.book.name }}》</p>
@@ -49,3 +49,4 @@
 	</ul>
 </div>
 {% endblock sidebar %}
+

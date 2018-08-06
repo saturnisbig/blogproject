@@ -6,12 +6,9 @@
 {% block content_nav %}
 <div class="content-nav mb-2">
 	<div class="bg-white p-2">
-		<a class="pb-2" href="/">主题</a>
-		<a class="pb-2 ml-4" href="/popular/">最热</a>
-		<a class="pb-2 ml-4 float-md-right" href="{% url 'rss' %}">
-			<i class="fa fa-rss mr-1" aria-hidden="true"></i>
-			RSS订阅
-		</a>
+		<a class="pb-2" href="/">最新</a>
+		<a class="pb-2 ml-4" href="/popular/">主题</a>
+		<a class="pb-2 ml-4" href="/popular/">书籍</a>
 	</div>
 </div>
 {% endblock content_nav %}
@@ -19,28 +16,14 @@
 {% block content %}
 {% for summary in summaries %}
 <div class="post-item mb-2 bg-white p-2">
-	{{ summary.content|safe }}
-	<p>《{{ summary.book.name }}》</p>
-	<ul class="list-inline">
-		<span>作者：</span>
-		{% for author in summary.book.authors.all %}
-		<li class="list-inline-item text-secondary small">
-			<a href="#">
-				{{author.name}}
-			</a>
-		</li>
-		{% endfor %}
-	</ul>
-	<ul class="list-inline">
-		<span>主题：</span>
-		{% for subject in summary.subjects.all %}
-		<li class="list-inline-item text-secondary small">
-			<a href="#">
-				{{subject.name}}
-			</a>
-		</li>
-		{% endfor %}
-	</ul>
+	<blockquote class="blockquote small">
+		<a class="small" href="{% url 'box:summary_detail' summary.id %}">
+			{{ summary.content|safe|truncatewords_html:2 }}
+		</a>
+	<footer class="blockquote-footer text-right">
+		{{ summary.page }}《{{ summary.book.name }}》
+	</footer>
+	</blockquote>
 </div>
 {% endfor %}
 {% endblock content %}
@@ -62,12 +45,12 @@
 	</ul>
 </div>
 <div class="card border-0 bg-white p-2 mb-2">
-	<h6 class="card-title"><i class="fa fa-book mr-2"></i>主题</h6>
+	<h6 class="card-title"><i class="fa fa-book mr-2"></i>最新主题</h6>
 	{% get_recent_subjects as subjects %}
 	<ul>
 		{% for subject in subjects %}
 		<li>
-			<a href="#">
+			<a href="{% url 'box:subject_detail' subject.id %}">
 				{{ subject.name }}
 			</a>
 		</li>

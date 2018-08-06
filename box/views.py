@@ -24,3 +24,16 @@ class BookDetailView(DetailView):
     #     context = super(BookDetailView, self).get_context_data(**kwargs)
     #     book = context['book']
     #     return context
+
+
+class SubjectDetailView(DetailView):
+    model = Subject
+    template_name = 'box/subject_detail.html'
+    context_object_name = 'subject'
+    pk_url_kwarg = 'subject_id'
+
+
+class SummaryDetailView(DetailView):
+    model = Summary
+    template_name = 'box/summary_detail.html'
+    context_object_name = 'summary'

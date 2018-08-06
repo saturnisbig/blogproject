@@ -1,0 +1,57 @@
+{% extends 'box/base.html' %}
+
+{% block title %}文摘详情 - {{ summary.book.name }}{% endblock title%}
+
+{% block content_nav %}
+<div class="bg-white p-2">
+	<a href="{% url 'box:index'%}">文摘列表</a> -> <a href="{% url 'box:book_detail' summary.book.id %}">{{ summary.book.name }}</a>-> 文摘详情
+</div>
+{% endblock content_nav %}
+
+{% block content %}
+<div class="post-item mb-2 bg-white p-2">
+	{{ summary.content|safe }}
+	<div class="summary-detail">
+		<p class="small">
+		<span>来源：{{ summary.page }}
+			<a href="{% url 'box:book_detail' summary.book.id %}">《{{ summary.book.name }}》</a>
+		</span>
+		<span class="pull-right">创建时间：{{ summary.c_time}}</span>
+		</p>
+		<ul class="list-inline">
+			<span class="small">作者：</span>
+			{% for author in summary.book.authors.all %}
+			<li class="list-inline-item text-secondary small">
+				<a href="#">
+					{{author.name}}
+				</a>
+			</li>
+			{% endfor %}
+		</ul>
+		<ul class="list-inline">
+			<span class="small">主题：</span>
+			{% for subject in summary.subjects.all %}
+			<li class="list-inline-item text-secondary small">
+				<a href="#">
+					{{subject.name}}
+				</a>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+{% endblock content %}
+
+{% block sidebar %}
+<div class="card border-0 bg-white p-2 mb-2">
+	<h6 class="card-title"><i class="fa fa-book mr-2"></i>最近的书</h6>
+	<ul>
+		<li>
+			<a href="#">
+			</a>
+		</li>
+		<li>还没有在读书籍</li>
+	</ul>
+</div>
+{% endblock sidebar %}
+
