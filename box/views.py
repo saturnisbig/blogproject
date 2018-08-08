@@ -11,7 +11,7 @@ class BoxIndexView(ListView):
     model = Summary
     template_name = 'box/index.html'
     context_object_name = 'summaries'
-    # page_number = 3
+    paginate_by = 5
 
 
 class BookDetailView(DetailView):

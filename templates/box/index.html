@@ -18,14 +18,18 @@
 <div class="post-item mb-2 bg-white p-2">
 	<blockquote class="blockquote small">
 		<a class="small" href="{% url 'box:summary_detail' summary.id %}">
-			{{ summary.content|safe|truncatewords_html:2 }}
+			{{ summary.content|slice:'50'|safe }}......
 		</a>
-	<footer class="blockquote-footer text-right">
-		{{ summary.page }}《{{ summary.book.name }}》
-	</footer>
+		<footer class="blockquote-footer text-right">
+			{{ summary.page }}《{{ summary.book.name }}》
+		</footer>
 	</blockquote>
 </div>
 {% endfor %}
+{% display_pages %}
+{% if is_paginated %}
+{% include "base/paginator.html" %}
+{% endif %}
 {% endblock content %}
 
 {% block sidebar %}
