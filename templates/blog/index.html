@@ -122,9 +122,9 @@
 	<h6 class="card-title"><i class="fa fa-sitemap mr-2"></i>归档</h6>
 	{% archive as date_list %}
 	<ul>
-		{% for date in date_list %}
+		{% for date, number in date_list %}
 		<li>
-			<a href="{% url 'blog:archives' date.year date.month %}">{{ date.year }}年{{ date.month }}月</a>
+			<a href="{% url 'blog:archives' date.year date.month %}">{{ date.year }}年{{ date.month }}月({{ number }})</a>
 		</li>
 		{% empty %}
 		<li>
