@@ -14,6 +14,13 @@ class BoxIndexView(ListView):
     paginate_by = 5
 
 
+class BookListView(ListView):
+    model = Book
+    template_name = 'box/book_list.html'
+    context_object_name = 'books'
+    paginate_by = 10
+
+
 class BookDetailView(DetailView):
     model = Book
     template_name = 'box/book_detail.html'
@@ -24,6 +31,12 @@ class BookDetailView(DetailView):
     #     context = super(BookDetailView, self).get_context_data(**kwargs)
     #     book = context['book']
     #     return context
+
+class SubjectListView(ListView):
+    model = Subject
+    template_name = 'box/subject_list.html'
+    context_object_name = 'subjects'
+    is_paginated = 10
 
 
 class SubjectDetailView(DetailView):

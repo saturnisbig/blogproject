@@ -1,0 +1,43 @@
+{% extends 'box/base.html' %}
+{% load box_tags %}
+
+{% block title %}主题列表{% endblock title%}
+
+{% block content_nav %}
+	<div class="bg-white p-2">
+	主题列表	
+	</div>
+{% endblock content_nav %}
+
+{% block content %}
+{% for subject in subjects %}
+<div class="post-item mb-2 bg-white p-2">
+	<p>
+		<a href="{% url 'box:subject_detail' subject.id %}">
+		- {{ subject.name }}
+		</a>
+	</p>
+	<p>
+	<span class="small">创建时间：{{ subject.c_time }}</span>
+	</p>
+</div>
+{% endfor %}
+{% display_pages %}
+{% if is_paginated %}
+{% include "base/paginator.html" %}
+{% endif %}
+{% endblock content %}
+
+{% block sidebar %}
+<div class="card border-0 bg-white p-2 mb-2">
+	<h6 class="card-title"><i class="fa fa-book mr-2"></i>最近的书</h6>
+	<ul>
+		<li>
+			<a href="#">
+			</a>
+		</li>
+		<li>还没有在读书籍</li>
+	</ul>
+</div>
+{% endblock sidebar %}
+

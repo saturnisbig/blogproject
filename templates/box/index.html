@@ -7,8 +7,8 @@
 <div class="content-nav mb-2">
 	<div class="bg-white p-2">
 		<a class="pb-2" href="/">最新</a>
-		<a class="pb-2 ml-4" href="/popular/">主题</a>
-		<a class="pb-2 ml-4" href="/popular/">书籍</a>
+		<a class="pb-2 ml-4" href="{% url 'box:subject_list' %}">主题</a>
+		<a class="pb-2 ml-4" href="{% url 'box:book_list' %}">书籍</a>
 	</div>
 </div>
 {% endblock content_nav %}

@@ -1,0 +1,55 @@
+{% extends 'box/base.html' %}
+{% load box_tags %}
+
+{% block title %}书籍列表{% endblock title%}
+
+{% block content_nav %}
+	<div class="bg-white p-2">
+		书籍列表
+	</div>
+{% endblock content_nav %}
+
+{% block content %}
+{% for book in books %}
+<div class="post-item mb-2 bg-white p-2">
+	<p>
+		<a href="{% url 'box:book_detail' book.id %}">
+		《{{ book.name }}》
+		</a>
+	</p>
+	<ul class="list-inline">
+		<span class="small">作者：</span>
+		{% for author in book.authors.all %}
+		<li class="list-inline-item text-secondary small">
+			<a href="#">
+				{{author.name}}
+			</a>
+		</li>
+		{% endfor %}
+	</ul>
+	<ul class="list-inline">
+		<span class="small">出版社：</span>
+		<li class="list-inline-item text-secondary small">
+			{{ book.publisher.name }}
+		</li>
+	</ul>
+</div>
+{% endfor %}
+{% display_pages %}
+{% if is_paginated %}
+{% include "base/paginator.html" %}
+{% endif %}
+{% endblock content %}
+
+{% block sidebar %}
+<div class="card border-0 bg-white p-2 mb-2">
+	<h6 class="card-title"><i class="fa fa-book mr-2"></i>最近的书</h6>
+	<ul>
+		<li>
+			<a href="#">
+			</a>
+		</li>
+		<li>还没有在读书籍</li>
+	</ul>
+</div>
+{% endblock sidebar %}

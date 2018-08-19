@@ -12,23 +12,27 @@
 				<a class="nav-link {% if request.path == index_url %}active{% endif %}" href="{{ index_url }}"><i class="fa fa-home mr-1"></i>首页</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link {% if request.path == index_url %}active{% endif %}" href="{{ index_url }}">
+				{% url 'blog:index' as blog_index %}
+				<a class="nav-link {% if request.path == blog_index %}active{% endif %}" href="{{ blog_index }}">
 					<i class="fa fa-blogger mr-1"></i>
 					博客
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link {% if request.path == 'box:index' %}active{% endif %}" href="{% url 'box:index' %}">
+				{% url 'box:index' as box_index %}
+				<a class="nav-link {% if request.path == box_index %}active{% endif %}" href="{{ box_index }}">
 					文摘
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link {% if request.path == 'tool:index' %}active{% endif %}" href="{% url 'tool:index' %}">
+				{% url 'tool:index' as tool_index %}
+				<a class="nav-link {% if request.path == tool_index %}active{% endif %}" href="{{ tool_index }}">
 				在线工具
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link {% if request.path == 'country:index' %}active{% endif %}" href="{% url 'country:index' %}">
+				{% url 'country:index' as country_index %}
+				<a class="nav-link {% if request.path == country_index %}active{% endif %}" href="{{ country_index }}">
 					各国资料导览
 				</a>
 			</li>

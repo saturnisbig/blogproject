@@ -11,28 +11,14 @@
 {% block content %}
 {% for summary in book.summary_set.all %}
 <div class="post-item mb-2 bg-white p-2">
-	{{ summary.content|safe }}
-	<p>《{{ summary.book.name }}》</p>
-	<ul class="list-inline">
-		<span>作者：</span>
-		{% for author in summary.book.authors.all %}
-		<li class="list-inline-item text-secondary small">
-			<a href="#">
-				{{author.name}}
-			</a>
-		</li>
-		{% endfor %}
-	</ul>
-	<ul class="list-inline">
-		<span>主题：</span>
-		{% for subject in summary.subjects.all %}
-		<li class="list-inline-item text-secondary small">
-			<a href="#">
-				{{subject.name}}
-			</a>
-		</li>
-		{% endfor %}
-	</ul>
+	<blockquote class="blockquote small">
+		<a class="small" href="{% url 'box:summary_detail' summary.id %}">
+			{{ summary.content|slice:'50'|safe }}......
+		</a>
+		<footer class="blockquote-footer text-right">
+			{{ summary.page }}《{{ summary.book.name }}》
+		</footer>
+	</blockquote>
 </div>
 {% endfor %}
 {% endblock content %}
