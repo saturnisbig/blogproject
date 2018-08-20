@@ -75,9 +75,10 @@ class Book(models.Model):
 @python_2_unicode_compatible
 class Summary(models.Model):
     content = models.TextField('摘要内容')
+    content_html = models.TextField('摘要内容HTML', editable=False, blank=True)
     c_time = models.DateTimeField('创建时间', auto_now_add=True)
     m_time = models.DateTimeField('修改时间', auto_now=True)
-    page = models.TextField('页码信息', blank=True)
+    page = models.CharField('页码信息', blank=True, max_length=150)
 
     subjects = models.ManyToManyField(Subject, verbose_name='所属主题')
     book = models.ForeignKey(Book, verbose_name='所属书本')
@@ -96,5 +97,5 @@ class Summary(models.Model):
             'markdown.extensions.extra',
             'markdown.extensions.codehilite',
         ])
-        self.content = md.convert(self.content)
+        self.content_html = md.convert(self.content)
         super(Summary, self).save(*args, **kwargs)
