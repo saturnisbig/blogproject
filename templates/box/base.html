@@ -1,4 +1,10 @@
 {% extends 'base.html' %}
+{% load box_tags %}
+
+{% block metas %}
+<meta name="description" content="读书文摘-是对所读书本中感受较深的句子进行摘要，并按照主题对读书文摘进行分类，关联书本读后感。">	
+<meta name="keywords" content="读书文摘，读后感，读书文摘主题分类,{{ summary.book.name }}, {% for subj in summary.subjects.all %}{{ subj.name }}, {% endfor %}">
+{% endblock metas %}
 
 {% block main %}
 <div class="col-md-8">
@@ -15,7 +21,36 @@
 </div>
 <div class="col-md-3 ml-2">
 	{% block sidebar %}
-	边栏区域
+	<div class="card border-0 bg-white p-2 mb-2">
+		<h6 class="card-title"><i class="fa fa-book mr-2"></i>最近的书</h6>
+		{% get_recent_books as books %}
+		<ul>
+			{% for book in books %}
+			<li>
+				<a href="{% url 'box:book_detail' book.id %}">
+					{{ book.name }}
+				</a>
+			</li>
+			{% empty %}
+			<li>还没有在读书籍</li>
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="card border-0 bg-white p-2 mb-2">
+		<h6 class="card-title"><i class="fa fa-book mr-2"></i>最新主题</h6>
+		{% get_recent_subjects as subjects %}
+		<ul>
+			{% for subject in subjects %}
+			<li>
+				<a href="{% url 'box:subject_detail' subject.id %}">
+					{{ subject.name }}
+				</a>
+			</li>
+			{% empty %}
+			<li>还没有文摘主题</li>
+			{% endfor %}
+		</ul>
+	</div>
 	{% endblock sidebar %}
 </div>
 {% endblock main %}

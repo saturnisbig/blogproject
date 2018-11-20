@@ -4,7 +4,7 @@
 
 {% block content_nav %}
 <div class="bg-white p-2">
-	书籍：{{ book.name }} -> 文摘
+	<a href="{% url 'box:index' %}">文摘</a> -> {{ book.name }}
 </div>
 {% endblock content_nav %}
 
@@ -23,15 +23,3 @@
 {% endfor %}
 {% endblock content %}
 
-{% block sidebar %}
-<div class="card border-0 bg-white p-2 mb-2">
-	<h6 class="card-title"><i class="fa fa-book mr-2"></i>最近的书</h6>
-	<ul>
-		<li>
-			<a href="#">
-			</a>
-		</li>
-		<li>还没有在读书籍</li>
-	</ul>
-</div>
-{% endblock sidebar %}

@@ -138,6 +138,21 @@
 	</ul>
 </div>
 
+<div class="cardw border-0 bg-white p-2 mb-2">
+	<h6 class="card-title"><i class="fa fa-sitemap mr-2"></i>最新评论</h6>
+	<ul>
+		{% for comment in comments_list %}
+		<li>
+			<a href="">comment.post.title</a>
+		</li>
+		{% empty %}
+		<li>
+			还没有归档
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+
 <div class="card border-0 bg-white p-2 mb-2">
 	<h6 class="card-title"><i class="fa fa-tags mr-2"></i>标签云</h6>
 	{% get_tags as taglist %}

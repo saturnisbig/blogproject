@@ -32,7 +32,7 @@
 			<span class="small">主题：</span>
 			{% for subject in summary.subjects.all %}
 			<li class="list-inline-item text-secondary small">
-				<a href="#">
+				<a href="{% url 'box:subject_detail' subject.id %}">
 					{{subject.name}}
 				</a>
 			</li>
