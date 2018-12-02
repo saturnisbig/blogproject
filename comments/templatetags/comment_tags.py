@@ -36,3 +36,8 @@ def get_parent_comment(post):
 def get_child_comment(com):
     com_list = com.postcomment_child_comments.all()
     return com_list
+
+@register.simple_tag
+def get_recent_comments(num=5):
+    recent_cmt_list = PostComment.objects.all()[:num]
+    return recent_cmt_list

@@ -46,7 +46,7 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'tplove',
+            'NAME': 'tplove_test',
             'USER': 'root',
             'PASSWORD': 'root123..',
             'HOST': 'localhost',
