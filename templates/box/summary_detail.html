@@ -1,5 +1,7 @@
 {% extends 'box/base.html' %}
 
+{% load static %}
+
 {% block title %}文摘详情 - {{ summary.book.name }}{% endblock title%}
 
 {% block content_nav %}
@@ -38,6 +40,9 @@
 			</li>
 			{% endfor %}
 		</ul>
+		<ul class="list-inline">
+			<div class="social-share-cs">分享：</div>
+		</ul>
 	</div>
 </div>
 {% endblock content %}
@@ -52,4 +57,15 @@
 </div>
 -->
 {% endblock sidebar %}
-
+{% block end_file %}
+<!--  css & js 通过share.js设置分享功能 -->
+<link rel="stylesheet" href="{% static 'blog/dist/css/share.min.css' %}">
+<script src="{% static 'blog/dist/js/social-share.min.js' %}"></script>
+<script charset="utf-8">
+	var $config = {
+	disabled: ['google'],
+	wechatQrcodeTitle: '微信扫一扫：分享',
+	};
+	socialShare('.social-share-cs', $config);
+</script>
+{% endblock %}
