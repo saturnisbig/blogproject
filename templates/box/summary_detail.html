@@ -24,7 +24,7 @@
 			<span class="small">作者：</span>
 			{% for author in summary.book.authors.all %}
 			<li class="list-inline-item text-secondary small">
-				<a href="#">
+				<a href="{% url 'box:author_books' author.id %}">
 					{{author.name}}
 				</a>
 			</li>

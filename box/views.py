@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 
-from box.models import Summary, Subject, Book
+from box.models import Summary, Subject, Book, Author
 
 
 class BoxIndexView(ListView):
@@ -50,3 +50,14 @@ class SummaryDetailView(DetailView):
     model = Summary
     template_name = 'box/summary_detail.html'
     context_object_name = 'summary'
+
+class AuthorBooksView(BookListView):
+    def get_context_data(self, **kwargs):
+        context = super(AuthorBooksView, self).get_context_data(**kwargs)
+        author = get_object_or_404(Author, pk=self.kwargs.get('author_id'))
+        context['current_obj'] = author
+        return context
+
+    def get_queryset(self):
+        author = get_object_or_404(Author, pk=self.kwargs.get('author_id'))
+        return super(AuthorBooksView, self).get_queryset().filter(authors=author)

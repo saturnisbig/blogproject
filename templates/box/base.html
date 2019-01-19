@@ -3,7 +3,7 @@
 
 {% block metas %}
 <meta name="description" content="读书文摘-是对所读书本中感受较深的句子进行摘要，并按照主题对读书文摘进行分类，关联书本读后感。">	
-<meta name="keywords" content="读书文摘，读后感，读书文摘主题分类,{{ summary.book.name }}, {% for subj in summary.subjects.all %}{{ subj.name }}, {% endfor %}">
+<meta name="keywords" content="读书文摘，读后感，读书文摘主题分类,{% get_recent_books as book_list %}{% for book in book_list %}《{{ book.name }}》{% empty %}{% endfor %}{% if summary %}《{{ summary.book.name }}》, {% for subj in summary.subjects.all %}{{ subj.name }}, {% endfor %}{% endif %}">
 {% endblock metas %}
 
 {% block main %}
@@ -23,9 +23,8 @@
 	{% block sidebar %}
 	<div class="card border-0 bg-white p-2 mb-2">
 		<h6 class="card-title"><i class="fa fa-book mr-2"></i>最近的书</h6>
-		{% get_recent_books as books %}
 		<ul>
-			{% for book in books %}
+			{% for book in book_list %}
 			<li>
 				<a href="{% url 'box:book_detail' book.id %}">
 					{{ book.name }}

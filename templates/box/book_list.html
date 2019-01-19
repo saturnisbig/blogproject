@@ -1,7 +1,12 @@
 {% extends 'box/base.html' %}
 {% load box_tags %}
 
-{% block title %}书籍列表{% endblock title%}
+{% block title %}
+{% if current_obj %}
+{{ current_obj.name }} -
+{% endif %}
+书籍列表
+{% endblock title%}
 
 {% block content_nav %}
 	<div class="bg-white p-2">
@@ -21,7 +26,7 @@
 		<span class="small">作者：</span>
 		{% for author in book.authors.all %}
 		<li class="list-inline-item text-secondary small">
-			<a href="#">
+			<a href="{% url 'box:author_books' author.id %}">
 				{{author.name}}
 			</a>
 		</li>
@@ -40,16 +45,3 @@
 {% include "base/paginator.html" %}
 {% endif %}
 {% endblock content %}
-
-{% block sidebar %}
-<div class="card border-0 bg-white p-2 mb-2">
-	<h6 class="card-title"><i class="fa fa-book mr-2"></i>读后感</h6>
-	<ul>
-		<li>
-			<a href="#">
-			</a>
-		</li>
-		<li>还没有读后感</li>
-	</ul>
-</div>
-{% endblock sidebar %}
