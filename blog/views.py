@@ -88,6 +88,13 @@ class IndexView(ListView):
 
 
 class CategoryView(IndexView):
+    def get_context_data(self, **kwargs):
+        context = super(CategoryView, self).get_context_data(**kwargs)
+        cate = get_object_or_404(Category, pk=self.kwargs.get('pk'))
+        context['current_obj'] = cate
+        context['current_title'] = '文章分类'
+        return context
+
     def get_queryset(self):
         cate = get_object_or_404(Category, pk=self.kwargs.get('pk'))
         return super(CategoryView, self).get_queryset().filter(category=cate)
@@ -152,6 +159,14 @@ class EntryDetailView(DetailView):
 
 
 class TagView(IndexView):
+    # 为了在模板显示标签名
+    def get_context_data(self, **kwargs):
+        context = super(TagView, self).get_context_data(**kwargs)
+        tag = get_object_or_404(Tag, pk=self.kwargs.get('pk'))
+        context['current_obj'] = tag
+        context['current_title'] = '文章标签'
+        return context
+
     def get_queryset(self):
         tag = get_object_or_404(Tag, pk=self.kwargs.get('pk'))
         return super(TagView, self).get_queryset().filter(tags=tag)

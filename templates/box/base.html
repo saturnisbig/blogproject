@@ -19,10 +19,11 @@
 		{% endblock content %}
 	</div>
 </div>
-<div class="col-md-3 ml-2">
+<div class="col-md-4">
 	{% block sidebar %}
 	<div class="card border-0 bg-white p-2 mb-2">
 		<h6 class="card-title"><i class="fa fa-book mr-2"></i>最近的书</h6>
+		{% get_recent_books as book_list %}
 		<ul>
 			{% for book in book_list %}
 			<li>
