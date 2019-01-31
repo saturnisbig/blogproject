@@ -1,6 +1,6 @@
 {% extends 'box/base.html' %}
 
-{% block title %}文摘列表-{{ book.name }}{% endblock title%}
+{% block title %}文摘-{{ book.name }}{% endblock title%}
 
 {% block content_nav %}
 <div class="bg-white p-2">
@@ -27,11 +27,15 @@
 <div class="card border-0 bg-white p-2 mb-2">
 	<h6 class="card-title"><i class="fa fa-book mr-2"></i>读后感</h6>
 	<ul>
+		{% if book.thoughts %}
 		<li>
-			<a href="#">
+			<a href="{{ book.thoughts.get_absolute_url }}">
+				{{ book.thoughts.title }}
 			</a>
 		</li>
+		{% else %}
 		<li>还没有读后感</li>
+		{% endif %}
 	</ul>
 </div>
 {% endblock sidebar %}

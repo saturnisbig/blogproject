@@ -5,6 +5,8 @@ import markdown
 from django.db import models
 from django.utils.six import python_2_unicode_compatible
 
+from blog.models import Entry
+
 
 @python_2_unicode_compatible
 class Subject(models.Model):
@@ -52,6 +54,8 @@ class Book(models.Model):
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE,
                                   verbose_name='出版社')
     pub_date = models.DateField('出版日期', blank=True, null=True)
+    thoughts = models.ForeignKey(Entry, verbose_name='读后感', blank=True,
+                                 null=True)
 
     class Meta:
         verbose_name = '书本'

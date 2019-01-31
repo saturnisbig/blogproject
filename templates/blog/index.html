@@ -4,7 +4,13 @@
 {% load blog_tags %}
 {% load comment_tags %}
 
-{% block title %}博客首页{% endblock title%}
+{% block title %}
+{% if current_title %}
+{{ current_obj.name }}-{{ current_title }}	
+{% else %}
+博客首页
+{% endif %}
+{% endblock title%}
 
 {% block content_nav %}
 <div class="bg-white p-2">
