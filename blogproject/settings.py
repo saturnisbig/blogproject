@@ -76,6 +76,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     # 第三方关联账号
     'allauth.socialaccount.providers.weibo',
+    'allauth.socialaccount.providers.weixin',
     'allauth.socialaccount.providers.github',
     'crispy_forms', # bootstrap表单样式
     # 自己的应用
@@ -194,3 +195,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
+
+# blog settings
+ENTRY_PER_PAGE = 8

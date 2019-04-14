@@ -7,7 +7,7 @@ import time
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from django.utils.text import slugify
-# from django.http import HttpResponse
+from django.conf import settings
 
 from blog.models import Entry, Category, Tag
 from comments.forms import PostCommentForm
@@ -18,7 +18,7 @@ class IndexView(ListView):
     model = Entry
     template_name = 'blog/index.html'
     context_object_name = 'post_list'
-    paginate_by = 5
+    paginate_by = settings.ENTRY_PER_PAGE
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
