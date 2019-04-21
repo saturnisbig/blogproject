@@ -103,8 +103,8 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 SITE_ID = 2
-# 禁用注册邮箱验证
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+# 启用注册邮箱验证，但是非强制性，没有验证仍可登录
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
 # 登录方式，用户名和邮箱都可以
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = 'true'
@@ -195,6 +195,15 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
+
+# email settings
+EMAIL_HOST = os.getenv('TPLOVE_EMAIL_HOST', 'smtp.163.com')
+EMAIL_HOST_USER = os.getenv('TPLOVE_EMAIL_HOST_USER', 'your-email-address')
+EMAIL_HOST_PASSWORD = os.getenv('TPLOVE_EMAIL_HOST_PASSWORD', 'password') # 非密码，授权码
+EMAIL_PORT = os.getenv('TPLOVE_EMAIL_PORT', 25)
+EMAIL_TIMEOUT = 5
+# 如果没有设置会出现553错误
+DEFAULT_FROM_EMAIL = os.getenv('TPLOVE_EMAIL_HOST_USER', 'your-email-address')
 
 # blog settings
 ENTRY_PER_PAGE = 8
