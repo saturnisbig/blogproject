@@ -1,12 +1,12 @@
 {% extends 'box/base.html' %}
 {% load box_tags %}
 
-{% block title %}
+{% block head_title %}
 {% if current_obj %}
 {{ current_obj.name }} -
 {% endif %}
 书籍列表
-{% endblock title%}
+{% endblock head_title%}
 
 {% block content_nav %}
 	<div class="bg-white p-2">
