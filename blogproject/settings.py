@@ -200,10 +200,11 @@ MEDIA_URL = '/media/'
 EMAIL_HOST = os.getenv('TPLOVE_EMAIL_HOST', 'smtp.163.com')
 EMAIL_HOST_USER = os.getenv('TPLOVE_EMAIL_HOST_USER', 'your-email-address')
 EMAIL_HOST_PASSWORD = os.getenv('TPLOVE_EMAIL_HOST_PASSWORD', 'password') # 非密码，授权码
-EMAIL_PORT = os.getenv('TPLOVE_EMAIL_PORT', 25)
-EMAIL_TIMEOUT = 5
+EMAIL_PORT = os.getenv('TPLOVE_EMAIL_PORT', 465)
+EMAIL_USE_SSL = True
+# EMAIL_TIMEOUT = 5
 # 如果没有设置会出现553错误
-DEFAULT_FROM_EMAIL = os.getenv('TPLOVE_EMAIL_HOST_USER', 'your-email-address')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # blog settings
 ENTRY_PER_PAGE = 8
