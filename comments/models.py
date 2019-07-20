@@ -17,11 +17,15 @@ class Comment(models.Model):
 
     author = models.ForeignKey(settings.AUTH_USER_MODEL,
                                related_name='%(class)s_related',
-                               verbose_name=u'评论人')
+                               verbose_name=u'评论人',
+                               blank=True, null=True,
+                               on_delete=models.SET_NULL)
     parent = models.ForeignKey('self', related_name='%(class)s_child_comments',
-                               verbose_name=u'父评论', blank=True, null=True)
+                               verbose_name=u'父评论', blank=True, null=True,
+                               on_delete=models.SET_NULL)
     rep_to = models.ForeignKey('self', related_name='%(class)s_rep_comment',
-                               verbose_name=u'回复', blank=True, null=True)
+                               verbose_name=u'回复', blank=True, null=True,
+                               on_delete=models.SET_NULL)
 
     class Meta:
         '''元类，用来继承'''
@@ -42,7 +46,8 @@ class Comment(models.Model):
 
 class PostComment(Comment):
     post = models.ForeignKey(Entry, verbose_name=u'所属文章',
-                             related_name='post_comments')
+                             related_name='post_comments',
+                             on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = u'文章评论'

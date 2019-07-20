@@ -34,7 +34,7 @@ class Organisation(models.Model):
     c_time = models.DateTimeField(auto_now_add=True)
 
     country = TreeForeignKey(Country, verbose_name='所属群', null=True,
-                                blank=True)
+                             blank=True, on_delete=models.SET_NULL)
 
     class Meta:
         ordering = ('-c_time',)

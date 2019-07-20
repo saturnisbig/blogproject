@@ -55,7 +55,7 @@ class Book(models.Model):
                                   verbose_name='出版社')
     pub_date = models.DateField('出版日期', blank=True, null=True)
     thoughts = models.ForeignKey(Entry, verbose_name='读后感', blank=True,
-                                 null=True)
+                                 null=True, on_delete=models.SET_NULL)
 
     class Meta:
         verbose_name = '书本'
@@ -85,7 +85,8 @@ class Summary(models.Model):
     page = models.CharField('页码信息', blank=True, max_length=150)
 
     subjects = models.ManyToManyField(Subject, verbose_name='所属主题')
-    book = models.ForeignKey(Book, verbose_name='所属书本')
+    book = models.ForeignKey(Book, verbose_name='所属书本', null=True,
+                             blank=True, on_delete=models.SET_NULL)
     # think = models.ForeignKey(Think, verbose_name='感想', blank=True)
 
     class Meta:
