@@ -9,6 +9,6 @@ app_name = 'country'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^(?P<pk>\d+)/$', views.get_country, name='get_country'),
-    url(r'^organisation/(?P<pk>\d+)/$', views.get_organisation,
-        name='get_organisation'),
+    # url(r'^organisation/(?P<pk>\d+)/$', views.get_organisation,
+    #     name='get_organisation'),
 ]

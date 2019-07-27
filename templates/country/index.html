@@ -1,7 +1,5 @@
 {% extends 'base.html' %}
 
-{% load mptt_tags %}
-
 {% block head_title %}
 各国信息导览
 {% endblock %}
@@ -11,24 +9,15 @@
 <div class="col col-md-8">
 	<h6>各国信息导航</h6>
 	<ul>
-		{% if nodes %}
-		{% recursetree nodes %}
+		{% for cty in countries %}
 		<li>
-			{% if node.is_leaf_node %}
-			<a href="{% url 'country:get_organisation' node.id %}">
-			{{ node.name }}
+			<a href="{% url 'country:get_country' cty.id %}">
+				{{ cty.name }}
 			</a>
-			{% else %}
-			{{ node.name }}
-			<ul class="children">
-				{{ children}}
-			</ul>
-			{% endif %}
 		</li>
-		{% endrecursetree %}
-		{% else %}
+		{% empty %}
 		还没有国家信息
-		{% endif %}
+		{% endfor %}
 	</ul>
 </div>
 {% endblock %}

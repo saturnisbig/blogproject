@@ -3,14 +3,18 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 
-from country.models import Country, Organisation
+from country.models import Country, Category, Site
 
 
 @admin.register(Country)
 class CountryAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'parent', 'level')
+    pass
 
 
-@admin.register(Organisation)
-class OrganisationAdmin(admin.ModelAdmin):
-    list_display = ('name', 'country', 'desc', 'link')
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Site)
+class SiteAdmin(admin.ModelAdmin):
+    pass

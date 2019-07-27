@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block head_title %}
+{{ country.name }} -- 信息导航
+{% endblock %}
+
+{% block main %}
+<div class="col col-md-9">
+	<h6>{{ country.name }}</h6>
+	<ul>
+	{% for cat in categories %}
+	<li>{{ cat.name }}</li>
+	{% empty %}
+		没有类别信息
+	{% endfor %}
+	</ul>
+</div>
+{% endblock %}
+
