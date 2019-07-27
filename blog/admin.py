@@ -3,6 +3,7 @@
 from django.contrib import admin
 
 from blog.models import Entry, Category, Tag
+from users.models import User
 
 
 class EntryAdmin(admin.ModelAdmin):
@@ -32,6 +33,11 @@ class EntryAdmin(admin.ModelAdmin):
         else:
             return ''
     show_entry_comment.short_description = '最新评论'
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == 'author':
+            kwargs['queryset'] = User.objects.filter(is_staff=True)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 @admin.register(Tag)
