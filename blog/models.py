@@ -19,7 +19,7 @@ class Category(models.Model):
     m_time = models.DateTimeField('修改时间', auto_now=True)
 
     class Meta:
-        verbose_name_plural = 'Categories'
+        verbose_name = verbose_name_plural = '分类'
 
     def __str__(self):
         return self.name
@@ -35,6 +35,9 @@ class Tag(models.Model):
     c_time = models.DateTimeField('创建时间', auto_now_add=True)
     m_time = models.DateTimeField('修改时间', auto_now=True)
 
+    class Meta:
+        verbose_name = verbose_name_plural = '标签'
+
     def __str__(self):
         return self.name
 
@@ -42,7 +45,7 @@ class Tag(models.Model):
 @python_2_unicode_compatible
 class Entry(models.Model):
     title = models.CharField('文章标题', max_length=200)
-    slug = models.SlugField(blank=True, max_length=100)
+    slug = models.SlugField(blank=True, max_length=100, unique=True)
     # 文章简介，可以为空
     excerpt = models.CharField('摘要', max_length=255, blank=True,
                                help_text='不填写则自动生成')
@@ -60,7 +63,7 @@ class Entry(models.Model):
 
     class Meta:
         ordering = ['-c_time']
-        verbose_name_plural = 'Entries'
+        verbose_name = verbose_name_plural = '博文'
 
     def __str__(self):
         return self.title
