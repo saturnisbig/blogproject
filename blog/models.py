@@ -14,6 +14,7 @@ from django.conf import settings
 @python_2_unicode_compatible
 class Category(models.Model):
     name = models.CharField('类别名称', max_length=200)
+    slug = models.SlugField(blank=True, max_length=50, unique=True)
     c_time = models.DateTimeField('创建时间', auto_now_add=True)
     m_time = models.DateTimeField('修改时间', auto_now=True)
 
@@ -30,6 +31,7 @@ class Category(models.Model):
 @python_2_unicode_compatible
 class Tag(models.Model):
     name = models.CharField('标签', max_length=150)
+    slug = models.SlugField(blank=True, max_length=50, unique=True)
     c_time = models.DateTimeField('创建时间', auto_now_add=True)
     m_time = models.DateTimeField('修改时间', auto_now=True)
 
@@ -40,6 +42,7 @@ class Tag(models.Model):
 @python_2_unicode_compatible
 class Entry(models.Model):
     title = models.CharField('文章标题', max_length=200)
+    slug = models.SlugField(blank=True, max_length=100)
     # 文章简介，可以为空
     excerpt = models.CharField('摘要', max_length=255, blank=True,
                                help_text='不填写则自动生成')
@@ -73,6 +76,7 @@ class Entry(models.Model):
         super(Entry, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
+        # dt = {'slug': self.slug} if self.slug else {'pk': self.pk}
         return reverse('blog:detail', kwargs={'pk': self.pk})
 
     def increase_views(self):
