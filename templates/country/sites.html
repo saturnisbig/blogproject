@@ -1,19 +1,41 @@
 {% extends 'base.html' %}
 
+{% load country_tags %}
+
 {% block head_title %}
 {{ country.name }} -- 信息导航
 {% endblock %}
 
 {% block main %}
-<div class="col col-md-9">
-	<h6>{{ country.name }}</h6>
-	<ul>
+<div class="col col-md-10 mx-auto">
+	<h5 class="text-center text-info">{{ country.name }}</h5>
 	{% for cat in categories %}
-	<li>{{ cat.name }}</li>
+	<table class="table table-bordered bg-light">
+		<caption class="text-center font-weight-bold" style="caption-side: top; align=center">{{ cat.name }}</caption>
+		<tbody>
+			{% get_sites_of_cat cat sites as objects %}
+			<tr>
+				{% for obj in objects %}
+				{% if forloop.counter|divisibleby:5 %}
+				<tr>
+					{% endif %}
+					<td>
+						<a href="{{ obj.link }}" target="_blank">
+							{{ forloop.counter }}.{{ obj.title }}
+						</a>
+					</td>
+					{% if forloop.counter|divisibleby:4 %} <!-- 第四个时增加该标签 -->
+				</tr>
+				{% endif %}
+				{% empty %}
+				<td>没有网址</td>
+				{% endfor %}
+			</tr>
+		</tbody>
+	</table>
 	{% empty %}
-		没有类别信息
+	没有类别信息
 	{% endfor %}
-	</ul>
 </div>
 {% endblock %}
 

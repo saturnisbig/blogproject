@@ -6,11 +6,11 @@
 
 {% block main %}
 
-<div class="col col-md-8">
-	<h6>各国信息导航</h6>
-	<ul>
+<div class="col col-md-10 mx-auto">
+	<h5 class="text-center text-info">各国信息导航</h5>
+	<ul class="list-group">
 		{% for cty in countries %}
-		<li>
+		<li class="list-group-item">
 			<a href="{% url 'country:get_country' cty.id %}">
 				{{ cty.name }}
 			</a>

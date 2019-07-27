@@ -17,4 +17,6 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Site)
 class SiteAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['title', 'link', 'category', 'country', 'c_time']
+    list_filter = ('category', 'country')
+    list_per_page = 20
