@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load mptt_tags %}
+
 {% block head_title %}
 各国信息导览
 {% endblock %}
@@ -8,16 +10,21 @@
 
 <div class="col col-md-10 mx-auto">
 	<h5 class="text-center text-info">各国信息导航</h5>
-	<ul class="list-group">
-		{% for cty in countries %}
+	<ul class="list-group list-group-horizontal">
+		{% recursetree countries %}
+		<li class="list-group-item text-center list-group-item-secondary">
+			{{ node.name }}
+		</li>
+		{% if not node.is_leaf_node %}
+		{% for cty in node.children.all %}
 		<li class="list-group-item">
 			<a href="{% url 'country:get_country' cty.id %}">
 				{{ cty.name }}
 			</a>
 		</li>
-		{% empty %}
-		还没有国家信息
 		{% endfor %}
+		{% endif %}
+		{% endrecursetree %}
 	</ul>
 </div>
 {% endblock %}

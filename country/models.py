@@ -4,16 +4,21 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.six import python_2_unicode_compatible
 
-# from mptt.models import MPTTModel, TreeForeignKey
+from mptt.models import MPTTModel, TreeForeignKey
 
 
 @python_2_unicode_compatible
-class Country(models.Model):
+class Country(MPTTModel):
     name = models.CharField('名称', max_length=100, unique=True)
     c_time = models.DateTimeField(auto_now_add=True)
+    parent = TreeForeignKey('self', on_delete=models.CASCADE, blank=True,
+                          null=True, related_name='children')
 
     class Meta:
-        verbose_name = verbose_name_plural = '国家'
+        verbose_name = verbose_name_plural = '国家/地区'
+
+    class MPTTMeta:
+        order_insertion_by = ['name']
 
     def __str__(self):
         return self.name

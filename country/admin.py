@@ -3,12 +3,14 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 
+from mptt.admin import MPTTModelAdmin
+
 from country.models import Country, Category, Site
 
 
 @admin.register(Country)
-class CountryAdmin(admin.ModelAdmin):
-    pass
+class CountryMPTTModelAdmin(MPTTModelAdmin):
+    mptt_level_indent = 20
 
 
 @admin.register(Category)
