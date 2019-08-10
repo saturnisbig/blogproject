@@ -18,7 +18,7 @@
 		{% if not node.is_leaf_node %}
 		{% for cty in node.children.all %}
 		<li class="list-group-item">
-			<a href="{% url 'country:get_country' cty.id %}">
+			<a href="{{ cty.get_absolute_url }}">
 				{{ cty.name }}
 			</a>
 		</li>

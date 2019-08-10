@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.utils.six import python_2_unicode_compatible
+from django.shortcuts import reverse
 
 from mptt.models import MPTTModel, TreeForeignKey
 
@@ -10,6 +11,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 @python_2_unicode_compatible
 class Country(MPTTModel):
     name = models.CharField('名称', max_length=100, unique=True)
+    slug = models.SlugField(blank=True, max_length=100)
     c_time = models.DateTimeField(auto_now_add=True)
     parent = TreeForeignKey('self', on_delete=models.CASCADE, blank=True,
                           null=True, related_name='children')
@@ -23,9 +25,14 @@ class Country(MPTTModel):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('country:get_country', kwargs={'pk': self.pk})
+
+
 @python_2_unicode_compatible
 class Category(models.Model):
     name = models.CharField('名称', max_length=150, unique=True)
+    slug = models.SlugField(blank=True, max_length=100)
     c_time = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -34,9 +41,13 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        pass
+
 @python_2_unicode_compatible
 class Site(models.Model):
     title = models.CharField('网站名称', max_length=150)
+    slug = models.SlugField(blank=True, max_length=100)
     link = models.URLField('网站地址', blank=True)
     desc = models.TextField('网站简介', blank=True)
     c_time = models.DateTimeField(auto_now_add=True)
@@ -52,3 +63,6 @@ class Site(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        pass
