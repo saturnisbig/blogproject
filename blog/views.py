@@ -90,13 +90,13 @@ class IndexView(ListView):
 class CategoryView(IndexView):
     def get_context_data(self, **kwargs):
         context = super(CategoryView, self).get_context_data(**kwargs)
-        cate = get_object_or_404(Category, pk=self.kwargs.get('pk'))
+        cate = get_object_or_404(Category, slug=self.kwargs.get('slug'))
         context['current_obj'] = cate
         context['current_title'] = '文章分类'
         return context
 
     def get_queryset(self):
-        cate = get_object_or_404(Category, pk=self.kwargs.get('pk'))
+        cate = get_object_or_404(Category, slug=self.kwargs.get('slug'))
         return super(CategoryView, self).get_queryset().filter(category=cate)
 
 

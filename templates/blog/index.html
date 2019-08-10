@@ -115,7 +115,7 @@
 	<ul>
 		{% for category in categories %}
 		<li>
-			<a href="{% url 'blog:category' category.pk %}">
+			<a href="{{ category.get_absolute_url }}">
 				{{ category.name }}<span class="post-count">({{ category.num_posts }})</span>
 			</a>
 		</li>

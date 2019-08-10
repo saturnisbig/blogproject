@@ -14,7 +14,7 @@ from django.conf import settings
 @python_2_unicode_compatible
 class Category(models.Model):
     name = models.CharField('类别名称', max_length=200)
-    slug = models.SlugField(blank=True, max_length=50)
+    slug = models.SlugField(blank=True, max_length=50, unique=True)
     c_time = models.DateTimeField('创建时间', auto_now_add=True)
     m_time = models.DateTimeField('修改时间', auto_now=True)
 
@@ -25,7 +25,7 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('blog:category', kwargs={'pk': self.pk})
+        return reverse('blog:category', kwargs={'slug': self.slug})
 
 
 @python_2_unicode_compatible
