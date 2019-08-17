@@ -4,9 +4,16 @@
 from django import template
 from django.db.models.aggregates import Count
 
-from box.models import Subject, Book
+from box.models import Subject, Book, Summary
 
 register = template.Library()
+
+
+@register.simple_tag
+def get_random_summary():
+    import random
+    summary = random.choice(Summary.objects.all())
+    return summary
 
 
 @register.simple_tag
