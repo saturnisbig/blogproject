@@ -36,6 +36,12 @@
 					各国资料导览
 				</a>
 			</li>
+			<li class="nav-item">
+				{% url 'blog:archives_list' as archives %}
+				<a class="nav-link {% if request.path == archives %}active{% endif %}" href="{{ archives }}">
+				博文归档
+				</a>
+			</li>
 		</ul>
 		<ul class="navbar-nav">
 			{% if user.is_authenticated %}

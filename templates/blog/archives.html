@@ -1,0 +1,40 @@
+{% extends 'blog/base.html' %}
+
+{% load blog_tags %}
+
+{% block head_title %}
+{% if current_title %}
+{{ current_obj.name }}-{{ current_title }}	
+{% else %}
+博文归档-博客
+{% endif %}
+{% endblock head_title%}
+
+{% block content_nav %}
+博文归档
+{% endblock content_nav %}
+
+{% block content %}
+<div class="col-12 col-sm-8 col-md-6">
+	<div class="cardw border-0 bg-white p-2 mb-2">
+		{% archive as datetime_list %}
+		{% regroup datetime_list by year as dates_by_year %}
+		<ul>
+			{% for year in dates_by_year %}
+			{% regroup year.list by month as dates_by_month %}
+			{% for month in dates_by_month %}
+			<li>
+				<a href="{% url 'blog:archives' year.grouper month.grouper %}">{{ year.grouper }}年{{ month.grouper }}月({{ month.list|length }})</a>
+			</li>
+			{% endfor %}
+			{% empty %}
+			<li>
+				还没有归档
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+{% endblock content %}
+{% block sidebar %}
+{% endblock sidebar %}

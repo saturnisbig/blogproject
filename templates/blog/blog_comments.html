@@ -1,0 +1,21 @@
+{% load comment_tags %}
+
+<div class="cardw border-0 bg-white p-2 mb-2">
+	<h6 class="card-title"><i class="fa fa-sitemap mr-2"></i>最新评论</h6>
+	<ol>
+		{% get_recent_comments as comments_list %}
+		{% for comment in comments_list %}
+		<li>
+			<a href="{% url 'blog:detail' comment.post.id %}#comment-area">
+				Re:{{ comment.post.title }}
+			</a>
+		</li>
+		<span class="small font-weight-bold">{{ comment.author.username }}:</span>
+		<span class="small">{{ comment.content }}</span>
+		{% empty %}
+		<li>
+			还没有评论！
+		</li>
+		{% endfor %}
+	</ol>
+</div>

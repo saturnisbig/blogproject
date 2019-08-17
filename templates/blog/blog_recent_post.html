@@ -1,0 +1,17 @@
+{% load blog_tags %}
+
+<div class="card border-0">
+	<h6 class="card-title">最新文章</h6>
+	{% get_recent_posts as post_list %}
+	<div class="card-body">
+	<ul>
+		{% for post in post_list %}
+		<li>
+			<a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+		</li>
+		{% empty %}
+		<li>没有最新文章</li>
+		{% endfor %}
+	</ul>
+	</div>
+</div>

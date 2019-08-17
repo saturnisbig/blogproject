@@ -108,6 +108,9 @@ class ArchiveView(IndexView):
             c_time__year=year,
             c_time__month=month)
 
+def archives_list(request):
+    return render(request, 'blog/archives.html')
+
 
 class EntryDetailView(DetailView):
     model = Entry

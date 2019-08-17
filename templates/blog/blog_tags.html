@@ -1,0 +1,19 @@
+{% load blog_tags %}
+
+<div class="card border-0 bg-white p-2 mb-2">
+	<h6 class="card-title"><i class="fa fa-tags mr-2"></i>标签云</h6>
+	{% get_tags as taglist %}
+	<div class="tag-cloud">
+		<ul class="list-inline">
+			{% for tag in taglist %}
+			<li class="list-inline-item small">
+				<a title="{{tag.name}}标签下有{{tag.num_posts}}篇文章" href="{% url 'blog:tag' tag.pk %}">
+					{{ tag.name }}({{ tag.num_posts }})
+				</a>
+			</li>
+			{% empty %}
+			还没有标签.
+			{% endfor %}
+		</ul>
+	</div>
+</div>
